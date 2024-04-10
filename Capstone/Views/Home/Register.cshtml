@@ -1,0 +1,51 @@
+﻿@model Capstone.Models.Utenti
+
+@{
+    ViewBag.Title = "Register";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="form-group mt-5 mb-3 bg-form p-5 rounded user-container">
+                    <h2 class="text-white text-center">Registrazione</h2>
+                    <div class="form-group">
+                        <label for="exampleInputUsername" class="form-label text-white mt-4 fw-semibold">Username</label>
+                        <div>
+                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", id = "exampleInputUsername" } })
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail" class="form-label text-white mt-3 fw-semibold">Email</label>
+                        <div>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", id = "exampleInputEmail" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" class="form-label text-white mt-3 fw-semibold">Password</label>
+                        <div>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", id = "exampleInputPassword1" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button style="background-color: #c3d4ca; border: none" type="submit" class="btn btn-primary btn-block mt-3">Crea l'account</button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="@Url.Action("Login")" class="btn" style="color: #ffffff; text-decoration:underline;">Possiedi già un account? Fai il login da qui.</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

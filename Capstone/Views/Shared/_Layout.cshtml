@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Applicazione ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark custom-background border-bottom border-secondary fixed-top">
+        <div class="container">
+            <img src="~/Content/Images/logo.jpeg" alt="Logo EPINFT" class="img-fluid me-2 rounded-3" height="60" width="60">
+            @Html.ActionLink("EPINFT", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Attiva/Disattiva spostamento" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("FAQ", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li style="margin-right:auto">@Html.ActionLink("Collezioni", "Index", "Collezioni", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+                <form class="d-flex me-md-5">
+                    <div class="input-group">
+                        <input class="form-control border-secondary bg-transparent text-white" type="search" placeholder="Cerca..." aria-label="Search">
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <i class="bi bi-search text-secondary"></i>
+                        </button>
+                    </div>
+                </form>
+                <ul class="navbar-nav">
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "nav-link text-white" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Registrati", "Register", "Home", new { area = "" }, new { @class = "nav-link text-white" })
+                        }
+                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @*<li style="padding-top: 5px;" class="me-2">
+                                <span class="nav-item">
+                                    <a class="p-0 nav-link" href="@Url.Action("OrdiniUtente", "Ordini")" title="Ordini Utente">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#FF7323" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                        </svg>
+                                    </a>
+                                </span>
+                            </li>*@
+                        @*<li style="position: relative;">
+                                <span class="nav-item">
+                                    <a href="@Url.Action("Index", "Carrello")" class="nav-link" title="Carrello">
+                                        <svg style="margin-bottom: 6px" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#FF7323" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                        </svg>
+                                    </a>
+                                </span>
+                            </li>*@
+                        <li class="nav-item dropdown d-flex">
+                            @if (Request.Cookies["Avatar"] != null)
+                            {
+                                var valoreCookie = Request.Cookies["Avatar"].Value;
+                                <img src="@Url.Content("~/Content/Images/Utenti/" + valoreCookie)" width="40" height="40" class="rounded-circle nav-link cover" alt="Avatar utente" style="object-fit:cover; width:auto"/>
+                            }
+                            <a class="nav-link dropdown-toggle text-white ps-lg-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                Benvenuto @User.Identity.Name
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>@Html.ActionLink("Il Mio Profilo", "MyProfile", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Wallet", "MyWallet", "Wallets", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Le Mie Collezioni", "", "", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Impostazioni", "Edit", "Utenti", new { id = User.Identity.Name }, new { @class = "dropdown-item" })</li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>@Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
+                            </ul>
+                        </li>
+
+                        @*@if (Session["cart"] != null && (Session["cart"] as List<BE_U2_W3_Pizzeria.Models.Prodotti>).Any())
+                            {
+                                var cart = Session["cart"] as List<BE_U2_W3_Pizzeria.Models.Prodotti>;
+                                int totalQuantity = cart.Sum(p => p.Quantita); // Calcola la quantità totale nel carrello
+                                <span class="badge bg-danger position-absolute rounded-pill" style="top: 0px; right: -5px;">
+                                    @totalQuantity
+                                </span>
+                            }*@
+
+
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("Accedi", "Login", "Home", new { area = "" }, new { @class = "btn btn-custom" })
+                        </li>
+
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li>@Html.ActionLink("Dashboard", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    @* --- FOOTER --- *@
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr class="text-white" />
+        <footer class="text-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="d-flex align-items-center">
+                            <img src="~/Content/Images/logo.jpeg" class="img-fluid me-2 rounded-3" height="60" width="60" loading="lazy" alt="Metalink home">
+                            <h4 class="mb-0 fw-light">EPINFT</h4>
+                        </div>
+
+                        <ul class="ms-2 mt-3 list-unstyled">
+                            <li class="mb-2">
+                                <div class="d-flex align-items-center">
+                                    <img src="~/Content/Images/facebook.svg" alt="Logo Facebook" class="img-fluid me-2" style="height:22px" />
+                                    <span>Facebook</span>
+                                </div>
+                            </li>
+                            <li class="mb-2">
+                                <div class="d-flex align-items-center">
+                                    <img src="~/Content/Images/youtube.svg" alt="Logo Youtube" class="img-fluid me-2" style="height:22px" />
+                                    <span>Youtube</span>
+                                </div>
+                            </li>
+                            <li class="mb-2">
+                                <div class="d-flex align-items-center">
+                                    <img src="~/Content/Images/twitter.svg" alt="Logo Twitter" class="img-fluid me-2" style="height:22px" />
+                                    <span>Twitter</span>
+                                </div>
+                            </li>
+                            <li class="mb-2">
+                                <div class="d-flex align-items-center">
+                                    <img src="~/Content/Images/telegram.svg" alt="Logo Telegram" class="img-fluid me-2" style="height:22px" />
+                                    <span>Telegram</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <ul class="list-unstyled mt-2">
+                            <li class="mb-2 fs-4">
+                                <p class="fw-bold">Marketplace</p>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Esplora Oggetto</span>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Asta</span>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Attività</span>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Portafogli</span>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Creatori</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <ul class="list-unstyled mt-2">
+                            <li class="mb-2 fs-4">
+                                <p class="fw-bold">Link Utili</p>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Chi siamo</span>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Blog e Notizie</span>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Termini e Condizioni</span>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Informativa sulla Privacy</span>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Accesso</span>
+                            </li>
+                            <li class="mb-2 text-white">
+                                <i class="bi bi-dot"></i>
+                                <span>Contattaci</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <ul class="list-unstyled mt-2">
+                            <li class="mb-2 fs-4">
+                                <p class="fw-bold">Scarica l'app EPINFT</p>
+                            </li>
+                            <li class="mb-2 d-flex align-items-center">
+                                <a href="#" class="me-3">
+                                    <img src="~/Content/Images/appstore.png" width="134" height="40" loading="lazy" alt="Scarica l'app EPINFT da AppStore">
+                                </a>
+                                <a href="#">
+                                    <img src="~/Content/Images/playstore.png" width="134" height="40" loading="lazy" alt="Scarica l'app EPINFT da PlayStore">
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="list-unstyled">
+                            <li class="mb-4">
+                                <p class="fw-bold">Dettagli di Contatto</p>
+                            </li>
+
+                            <li class="mb-2 d-flex align-items-center">
+                                <i class="bi bi-envelope"></i>
+                                <a href="#" class="footer-text text-decoration-none ms-2">jacopo.guelpa@gmail.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <p>&copy; @DateTime.Now.Year - Jacopo Guelpa</p>
+        </footer>
+    </div>
+
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

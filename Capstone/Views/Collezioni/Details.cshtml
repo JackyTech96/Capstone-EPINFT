@@ -1,0 +1,74 @@
+﻿@model Capstone.Models.Collezioni
+
+@{
+    ViewBag.Title = "Dettagli Collezione";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <!-- Immagine della collezione -->
+                            <img src="@Url.Content("~/Content/Images/Collezioni/" + Model.FotoCollezione)" class="img-fluid rounded" alt="Foto Collezione">
+                        </div>
+                        <div class="col-md-8">
+                            <h2 class="card-title">@Model.NomeCollezione</h2>
+                            <p class="card-text">@Model.Descrizione</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Categoria:</strong> @Model.Categorie.NomeCategoria</p>
+                                    <p><strong>Data di Creazione:</strong> @Model.DataCreazione.ToShortDateString()</p>
+                                    <p><strong>Royalties:</strong> @Model.Royalties</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Aggiungi altre informazioni della collezione qui -->
+                                </div>
+                            </div>
+                            <!-- Aggiungi pulsanti o azioni per la collezione -->
+                            <div class="text-center mt-3">
+                                @Html.ActionLink("Modifica Collezione", "Edit", "Collezioni", new { id = Model.IdCollezione }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Elimina Collezione", "Delete", "Collezioni", new { id = Model.IdCollezione }, new { @class = "btn btn-danger", onclick = "return confirm('Sei sicuro di voler eliminare questa collezione?')" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h3 class="text-center mb-4">NFT nella Collezione</h3>
+            <div class="row">
+                @foreach (var nft in Model.NFT)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="@Url.Content($"~/Content/Images/NFT/{nft.FileNFT.NomeFile}")" class="card-img-top" alt="NFT Image">
+                            <div class="card-body">
+                                <h5 class="card-title">@nft.NomeNFT</h5>
+                                <p class="card-text">Descrizione: @nft.Descrizione</p>
+                                <p class="card-text">Prezzo: @nft.Prezzo</p>
+                                <!-- Aggiungi altre informazioni sull'NFT se necessario -->
+                                @if (nft.IsDisponibile)
+                                {
+                                    <!-- Aggiungi l'URL dell'azione "AggiungiAlCarrello" con il parametro idNFT -->
+                                    <a href="@Url.Action("AggiungiAlCarrello", "Carrello", new { idNFT = nft.IdNFT, quantita = 1 })" class="btn btn-primary">Aggiungi al Carrello</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="text-center mt-3">
+                @Html.ActionLink("Crea Nuovo NFT", "Create", "FileNFT", new { id = Model.IdCollezione }, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+</div>

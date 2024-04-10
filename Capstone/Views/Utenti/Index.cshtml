@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Capstone.Models.Utenti>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table text-white">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FotoUtente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsArtista)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ruolo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @if (string.IsNullOrEmpty(item.FotoUtente))
+            {
+                <img src="https://via.placeholder.com/150" alt="Placeholder" class="img-thumbnail" width="150" />
+            }
+            else
+            {
+                <img src="@Url.Content("~/Content/Images/Utenti/" + item.FotoUtente)" alt="Foto Utente" class="img-thumbnail" width="150" />
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsArtista)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ruolo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdUtente }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdUtente }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdUtente })
+        </td>
+    </tr>
+}
+
+</table>

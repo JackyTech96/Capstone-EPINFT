@@ -1,0 +1,82 @@
+﻿@model Capstone.Models.NFT
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NFT</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Collezioni.NomeCollezione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Collezioni.NomeCollezione)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileNFT.NomeFile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileNFT.NomeFile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utenti.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utenti.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeNFT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeNFT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descrizione)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prezzo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataCreazione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataCreazione)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDisponibile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDisponibile)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdNFT }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

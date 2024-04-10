@@ -1,0 +1,191 @@
+﻿
+
+/*-----------------------------------*\
+ * #CUSTOM PROPERTY 
+\*-----------------------------------*/
+
+
+:root {
+    /**
+   * colors
+   */
+
+    --jet: #333333;
+    --white: #ffffff;
+    --white-55: rgba(255, 255, 255, 0.55);
+    --black: #000000;
+    --onyx-1: #3d3d3d;
+    --onyx-2: #404040;
+    --gray-web: #7f7f7f;
+    --light-gray: #cccccc;
+    --davys-gray: #545454;
+    --graphite-gray: #252525;
+    --field-drab: #574d3e;
+    --red-crayola: #ff3d8e;
+    --teal: #008080;
+    --midnight-teal: #002535;
+    --turquoise: #05d8d1;
+    --golden-puppy: #ffcc33;
+    --quick-silver: #a3a3a3;
+    --sonic-silver: #707070;
+    --eerie-black-1: #262626;
+    --eerie-black-2: #121212;
+    --rich-black-fogra-39: #050505;
+   
+    /* transition*/
+    --transition: 0.15s ease-in-out;
+}
+
+/*-----------------------------------*\
+ * #RESET 
+\*-----------------------------------*/
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html { 
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--midnight-teal);
+    font-family: "DM Sans", sans-serif;
+    min-width: 280px;
+}
+
+/*-----------------------------------*\
+ * #REUSED STYLE 
+\*-----------------------------------*/
+
+
+.btn-custom {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--turquoise); 
+    --bs-btn-border-color: var(--turquoise); 
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #159c97; 
+    --bs-btn-hover-border-color: #159c97; 
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--turquoise); 
+    --bs-btn-active-border-color: var(--turquoise); 
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--turquoise); 
+    --bs-btn-disabled-border-color: var(--turquoise); 
+}
+
+i {
+    color:var(--turquoise)
+}
+
+.card {
+    box-shadow: 0 5px 13px hsla(214, 19%, 29%, 0.2);
+}
+
+.bg-card{
+    background-color: var(--graphite-gray);
+}
+
+/*-----------------------------------*\
+ * #NAVBAR
+\*-----------------------------------*/
+
+nav.custom-background {
+    background-color: var(--midnight-teal);
+}
+
+/*-----------------------------------*\
+ * #HERO
+\*-----------------------------------*/
+
+.hero {
+    padding: 60px 0;
+}
+
+
+.hero-title {
+    margin-bottom: 15px;
+}
+
+.hero-title > span {
+        display: inline-block;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: var(--turquoise);
+        -webkit-text-fill-color: transparent;
+}
+
+.hero-text {
+    margin-bottom: 20px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.hero-banner {
+    border: 20px solid var(--eerie-black-1);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.hero-banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+}
+
+/*-----------------------------------*\
+ * #LOGIN/REGISTRATION
+\*-----------------------------------*/
+
+
+.bg-form {
+    background-color: var(--teal);
+}
+
+.italic {
+    font-style: italic;
+    color: var(--white-55)
+}
+
+/*-----------------------------------*\
+ * #Q&A
+\*-----------------------------------*/
+
+.accordion {
+    --bs-accordion-btn-color: #ffffff;
+    --bs-accordion-color: #FFFFFF; /* Cambia il colore del testo dell'accordion */
+    --bs-accordion-bg: #333333; /* Cambia il colore di sfondo dell'accordion */
+    --bs-accordion-active-color: #FFFFFF; /* Cambia il colore del testo dell'accordion attivo */
+    --bs-accordion-active-bg: #0C63E4; /* Cambia il colore di sfondo dell'accordion attivo */
+}
+
+.footer-text {
+    color: var(--white-55);
+}
+
+footer span {
+    color: var(--white-55)
+}
+
+/*-----------------------------------*\
+ * #COLLEZIONI
+\*-----------------------------------*/
+
+.underline {
+    height:3px;
+    width:100px;
+    background-color:var(--turquoise)
+}
+
+.vertical-center {
+    vertical-align:middle;
+}

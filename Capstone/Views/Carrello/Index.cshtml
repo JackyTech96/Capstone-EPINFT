@@ -1,0 +1,47 @@
+﻿@model Capstone.Models.Carrello
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container mt-5 py-5">
+    <h2 class="text-white">Carrello</h2>
+    @if (TempData["Errore"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["Errore"]
+        </div>
+    }
+    <table class="table text-white">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Nome NFT</th>
+                <th>Descrizione</th>
+                <th>Prezzo</th>
+                <th>Quantità</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td><img src="@Url.Content($"~/Content/Images/NFT/{item.NFTItem.FileNFT.NomeFile}")" alt="Immagine NFT" style="max-height: 100px; max-width: 100px;" /></td>
+                    <td>@item.NFTItem.NomeNFT</td>
+                    <td>@item.NFTItem.Descrizione</td>
+                    <td>@item.NFTItem.Prezzo</td>
+                    <td>@item.Quantita</td>
+                    <td>
+                        <a href="@Url.Action("RimuoviDalCarrello", "Carrello", new { idNFT = item.NFTItem.IdNFT })">Rimuovi</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Continua gli acquisti</a>
+    </div>
+</div>
+

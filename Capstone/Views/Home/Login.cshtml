@@ -1,0 +1,41 @@
+﻿@model Capstone.Models.Utenti
+
+@{
+    ViewBag.Title = "Login";
+}
+
+
+
+@if (!string.IsNullOrEmpty(ViewBag.AuthError))
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.AuthError
+    </div>
+}
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-group user-container" }))
+{
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class=" bg-form p-5 rounded">
+                    <h2 class="text-white text-center">Login</h2>
+                    <div class="form-group">
+                        <label for="exampleInputUsername" class="form-label text-white mt-4 fw-semibold">Username</label>
+                        <input type="text" class="form-control" id="exampleInputUsername" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" class="form-label text-white mt-3 fw-semibold">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="rememberMe">
+                        <label class="form-check-label text-white" for="exampleCheck1">Ricordami</label>
+                    </div>
+                    <button style="background-color: #c3d4ca; border: none" type="submit" class="form-control mt-3">Accedi</button>
+                    <p class=" text-center mt-2 mb-0 italic">Non hai un account? Registrati</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}

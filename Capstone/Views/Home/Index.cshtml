@@ -1,0 +1,251 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (TempData["success"] != null)
+{
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script type="text/javascript">
+    toastr.success('@TempData["success"]')
+    </script>
+}
+
+
+<main>
+    <article>
+        <section class="hero mt-5 mb-md-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 order-md-last mb-4 mb-md-0">
+                        <!-- Reversed order for mobile -->
+                        <figure class="hero-banner">
+                            <img src="~/Content/Images/hero-banner.jpeg" alt="nft art" class="img-fluid">
+                        </figure>
+                    </div>
+                    <div class="col-md-6 order-md-first">
+                        <div class="text-start mb-3">
+                            <h1 class="display-3 fw-bold hero-title text-white">Esplora l'arte digitale e crea i tuoi <span class="fw-bold">NFT</span></h1>
+                            <p class="hero-text text-white my-4 fs-5">
+                                Collabora con uno dei più grandi marketplace al mondo per mostrare il tuo brand e i tuoi prodotti.
+                            </p>
+                            <div class="btn-group">
+                                <a class="btn btn-custom">Scopri di più</a>
+                                <a class="btn btn-secondary">Crea ora</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="row row-cols-5 align-items-center">
+                <div class="col">
+                    <img src="~/Content/Images/metamask-logo-dark.svg" class="img-fluid pt-3" alt="" />
+                </div>
+                <div class="col">
+                    <img src="~/Content/Images/coinbase.svg" class="img-fluid" alt="" />
+                </div>
+                <div class="col">
+                    <img src="~/Content/Images/bitgo.svg" class="img-fluid" alt="" />
+                </div>
+                <div class="col">
+                    <img src="~/Content/Images/Exodus_logo_white.svg" class="img-fluid" alt="" />
+                </div>
+                <div class="col">
+                    <img src="~/Content/Images/Trust_Core Logo_Blue.svg" class="img-fluid pt-1" alt="" />
+                </div>
+            </div>
+        </section>
+
+        @* 4 STEP *@
+
+        <section class="pt-md-5">
+
+            <h2 class="display-6 fw-bold text-white text-center my-5">Crea e vendi i tuoi NFT</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card bg-card text-white p-4">
+                            <div class="card-body text-center border border-secondary rounded">
+                                <img src="~/Content/Images/single-create-sell-item-1.png" class="my-3" width="44" height="33" alt="...">
+                                <h5 class="card-title mb-3">Imposta il tuo wallet</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card bg-card text-white p-4">
+                            <div class="card-body text-center border border-secondary rounded">
+                                <img src="~/Content/Images/single-create-sell-item-1.png" class="my-3" width="44" height="33" alt="...">
+                                <h5 class="card-title mb-3">Crea la tua collezione</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card bg-card text-white p-4">
+                            <div class="card-body text-center border border-secondary rounded">
+                                <img src="~/Content/Images/single-create-sell-item-1.png" class="my-3" width="44" height="33" alt="...">
+                                <h5 class="card-title mb-3">Aggiungi i tuoi NFT</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card bg-card text-white p-4">
+                            <div class="card-body text-center border border-secondary rounded">
+                                <img src="~/Content/Images/single-create-sell-item-1.png" class="my-3" width="44" height="33" alt="...">
+                                <h5 class="card-title mb-3">Vendi i tuoi NFT</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section top-collection mb-5">
+            <div class="container">
+                <h2 class="mt-5 fw-bold mb-4 text-white">Top Collezioni</h2>
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Prima card -->
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-1.jpg" class="card-img-top img-fluid" alt="Card Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 1</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-2.jpg" class="card-img-top img-fluid" alt="Card Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 2</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-3.jpg" class="card-img-top" alt="Card Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 2</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-6.gif" class="card-img-top img-fluid" alt="Card Gif">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 2</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Seconda card -->
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-1.jpg" class="card-img-top img-fluid" alt="Card Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 1</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-2.jpg" class="card-img-top img-fluid" alt="Card Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 2</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-3.jpg" class="card-img-top" alt="Card Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 2</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-6.gif" class="card-img-top img-fluid" alt="Card Gif">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 2</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Terza card -->
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-1.jpg" class="card-img-top img-fluid" alt="Card Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 1</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-2.jpg" class="card-img-top img-fluid" alt="Card Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 2</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-3.jpg" class="card-img-top" alt="Card Image">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 2</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card bg-form text-white">
+                                        <img src="~/Content/Images/showcase-6.gif" class="card-img-top img-fluid" alt="Card Gif">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card Title 2</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev justify-content-start" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next justify-content-end" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </article>
+</main>

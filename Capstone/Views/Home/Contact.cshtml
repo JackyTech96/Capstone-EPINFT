@@ -1,0 +1,84 @@
+﻿@model Capstone.Models.Collezioni
+
+<main>
+    <section>
+        <div class="container mb-5">
+            <h2 class="display-4 text-center my-5 text-white pt-5">Collezioni</h2>
+            <div class="row mb-2">
+                <div class="col-md-9">
+                    <div class="d-flex flex-wrap justify-content-center justify-content-md-start">
+                        <button type="button" class="btn btn-custom mx-1 mx-md-2 bg-transparent mb-2" onclick="filterCollections('Tutti')">Tutti</button>
+                        <button type="button" class="btn btn-custom mx-1 mx-md-2 bg-transparent mb-2" onclick="filterCollections('Arte')">Arte</button>
+                        <button type="button" class="btn btn-custom mx-1 mx-md-2 bg-transparent mb-2" onclick="filterCollections('Gaming')">Gaming</button>
+                        <button type="button" class="btn btn-custom mx-1 mx-md-2 bg-transparent mb-2" onclick="filterCollections('Musica')">Musica</button>
+                        <button type="button" class="btn btn-custom mx-1 mx-md-2 bg-transparent mb-2" onclick="filterCollections('Fotografia')">Fotografia</button>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center text-md-end mt-3 mt-md-0">
+                    <button type="button" class="btn btn-custom bg-transparent">Filtri</button>
+                </div>
+            </div>
+            <hr class="text-white" />
+
+            <!-- Tabella delle collezioni -->
+            <div class="table-responsive">
+                <table class="table table-borderless text-white">
+                    <thead>
+                        <tr>
+                            <th>Immagine</th>
+                            <th>Nome</th>
+                            <th>Descrizione</th>
+                            <!-- Aggiungi altre colonne se necessario -->
+                        </tr>
+                    </thead>
+                    <tbody id="collectionsTableBody">
+                        <!-- Qui verranno inserite dinamicamente le righe della tabella -->
+                        <tr class="vertical-center">
+                            <td><img src="~/Content/Images/new-item-1.jpg" alt="Immagine collezione 1" width="100" height="100" style="object-fit:cover"></td>
+                            <td>Collezione 1</td>
+                            <td>Descrizione della collezione 1</td>
+                        </tr>
+                        <tr>
+                            <td><img src="url_immagine_2.jpg" alt="Immagine collezione 2" width="100" height="100"></td>
+                            <td>Collezione 2</td>
+                            <td>Descrizione della collezione 2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+<!--<div class="container">
+           <div class="row">-->
+<!-- Esempio di card NFT -->
+<!--<div class="col-md-3 mb-4">
+    <div class="card">
+        <img src="path/to/nft-image.jpg" class="card-img-top" alt="NFT">
+        <div class="card-body">
+            <h5 class="card-title">Nome NFT</h5>
+            <p class="card-text">ID: #12345</p>
+            <p class="card-text"><small class="text-muted">Mi piace: 100</small></p>
+        </div>
+    </div>
+</div>-->
+<!-- Altre card NFT -->
+<!--</div>
+</div>-->
+<script>
+    // Funzione per filtrare le collezioni per categoria
+    function filterCollections(category) {
+        // Esegui qui la logica per filtrare le collezioni in base alla categoria selezionata
+        // Puoi utilizzare AJAX per recuperare le collezioni dal server e aggiornare la tabella dinamicamente
+        // Ad esempio:
+        // $.ajax({
+        //     url: '/Collezioni/GetCollectionsByCategory',
+        //     type: 'GET',
+        //     data: { category: category },
+        //     success: function (data) {
+        //         // Aggiorna la tabella con le nuove collezioni
+        //         $('#collectionsTableBody').html(data);
+        //     }
+        // });
+    }
+</script>
