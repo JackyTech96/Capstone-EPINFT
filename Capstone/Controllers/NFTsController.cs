@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,8 +18,8 @@ namespace Capstone.Controllers
         // GET: NFTs
         public ActionResult Index()
         {
-            var nFT = db.NFT.Include(n => n.Collezioni).Include(n => n.FileNFT).Include(n => n.Utenti);
-            return View(nFT.ToList());
+            //var nFT = db.NFT.Include(n => n.Collezioni).Include(n => n.FileNFT).Include(n => n.Utenti);
+            return View(/*nFT.ToList()*/);
         }
 
         // GET: NFTs/Details/5
@@ -37,43 +38,56 @@ namespace Capstone.Controllers
         }
 
         // GET: NFTs/Create
-        public ActionResult Create(int? idCollezione)
+        public ActionResult Create(int? id)
         {
-            // Ottenere l'ID dell'utente loggato
-            string username = User.Identity.Name;
-            var utente = db.Utenti.FirstOrDefault(u => u.Username == username);
-
-            // Verifica se l'utente è valido
-            if (utente == null)
+            if (id == null)
             {
-                return RedirectToAction("Index", "Home"); // Reindirizza se l'utente non è valido
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            // Imposta l'ID utente dell'NFT con l'ID dell'utente loggato
-            ViewBag.IdUtente = utente.IdUtente;
+            // Assegna l'IdCollezione alla TempData anziché alla ViewBag
+            TempData["IdCollezione"] = id;
+            System.Diagnostics.Debug.WriteLine("Value of IdCollezione in TempData: " + id);
 
-            // Verifica se è stato passato un ID di collezione valido
-            if (idCollezione != null)
-            {
-                System.Diagnostics.Debug.WriteLine("ID di collezione valido: " + idCollezione);
-                // Utilizza l'ID della collezione passato come parametro
-                ViewBag.IdCollezione = idCollezione;
-                ViewBag.IdFileNFT = new SelectList(db.FileNFT, "IdFileNFT", "NomeFile");
-                return View();
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("ID di collezione non valido");
-                // Se l'ID della collezione non è valido, reindirizza a una pagina di errore o fai un'altra gestione
-                return RedirectToAction("Index", "Home");
-            }
+            return View();
         }
+        //public ActionResult Create(int? idCollezione)
+        //{
+        //    // Ottenere l'ID dell'utente loggato
+        //    string username = User.Identity.Name;
+        //    var utente = db.Utenti.FirstOrDefault(u => u.Username == username);
+
+        //    // Verifica se l'utente è valido
+        //    if (utente == null)
+        //    {
+        //        return RedirectToAction("Index", "Home"); // Reindirizza se l'utente non è valido
+        //    }
+
+        //    // Imposta l'ID utente dell'NFT con l'ID dell'utente loggato
+        //    ViewBag.IdUtente = utente.IdUtente;
+
+        //    // Verifica se è stato passato un ID di collezione valido
+        //    if (idCollezione != null)
+        //    {
+        //        System.Diagnostics.Debug.WriteLine("ID di collezione valido: " + idCollezione);
+        //        // Utilizza l'ID della collezione passato come parametro
+        //        ViewBag.IdCollezione = idCollezione;
+        //        //ViewBag.IdFileNFT = new SelectList(db.FileNFT, "IdFileNFT", "NomeFile");
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        System.Diagnostics.Debug.WriteLine("ID di collezione non valido");
+        //        // Se l'ID della collezione non è valido, reindirizza a una pagina di errore o fai un'altra gestione
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //}
 
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdFileNFT,NomeNFT,Descrizione,Prezzo")] NFT nFT)
+        public ActionResult Create([Bind(Include = "NomeNFT,Descrizione,Prezzo")] NFT nFT, HttpPostedFileBase file, string tipoFile)
         {
             if (ModelState.IsValid)
             {
@@ -83,8 +97,14 @@ namespace Capstone.Controllers
 
                 if (utente != null)
                 {
-                    // Imposta l'ID dell'utente nell'NFT
+                    // Imposta l'ID dell'utente nell'NFT come proprietario
                     nFT.IdUtente = utente.IdUtente;
+
+                    // Imposta l'ID del proprietario nell'NFT
+                    nFT.IdProprietario = utente.IdUtente;
+
+                    // Debug per visualizzare il valore di IdProprietario
+                    System.Diagnostics.Debug.WriteLine("Valore di IdProprietario: " + nFT.IdProprietario);
 
                     // Recupera l'ID della collezione dalla TempData
                     int? idCollezione = TempData["IdCollezione"] as int?;
@@ -92,21 +112,66 @@ namespace Capstone.Controllers
                     // Verifica se l'ID della collezione è presente nella TempData
                     if (idCollezione != null)
                     {
-                        // Assegna l'ID della collezione all'NFT
-                        nFT.IdCollezione = idCollezione.Value;
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            // Determina la cartella in cui salvare il file
+                            string folderName;
+                            switch (tipoFile)
+                            {
+                                case "Immagine":
+                                    folderName = "Images";
+                                    break;
+                                case "Video":
+                                    folderName = "Videos";
+                                    break;
+                                case "Audio":
+                                    folderName = "Audios";
+                                    break;
+                                default:
+                                    ModelState.AddModelError("", "Tipo di file non valido.");
+                                    return View(nFT); // Ritorna la vista con il modello per mostrare gli errori
+                            }
 
-                        // Imposta IsDisponibile a true
-                        nFT.IsDisponibile = true;
+                            //Crea il percorso di salvataggio
+                            var uploadFolderPath = Server.MapPath($"/Content/{folderName}/NFT");
 
-                        // Imposta la data di creazione a DateTime.Now
-                        nFT.DataCreazione = DateTime.Now;
+                            if (!Directory.Exists(uploadFolderPath))
+                            {
+                                Directory.CreateDirectory(uploadFolderPath);
+                            }
 
-                        // Salva l'NFT nel database
-                        db.NFT.Add(nFT);
-                        db.SaveChanges();
+                            var fileName = Path.GetFileName(file.FileName);
+                            var filePath = Path.Combine(uploadFolderPath, fileName);
+                            file.SaveAs(filePath);
 
-                        // Reindirizza all'azione "Details" del controller "Collezione" con l'ID della collezione
-                        return RedirectToAction("Details", "Collezioni", new { id = idCollezione.Value });
+                            // Imposta il NomeFile nell'NFT
+                            nFT.NomeFile = fileName;
+
+                            // Imposta il TipoFile nell'NFT
+                            nFT.TipoFile = tipoFile;
+
+                            // Assegna l'ID della collezione all'NFT
+                            nFT.IdCollezione = idCollezione.Value;
+
+                            // Imposta IsDisponibile a true
+                            nFT.IsDisponibile = true;
+
+                            // Imposta la data di creazione a DateTime.Now
+                            nFT.DataCreazione = DateTime.Now;
+
+                            // Salva l'NFT nel database
+                            db.NFT.Add(nFT);
+                            db.SaveChanges();
+
+                            // Reindirizza all'azione "Details" del controller "Collezione" con l'ID della collezione
+                            return RedirectToAction("Details", "Collezioni", new { id = idCollezione.Value });
+                        }
+                        else
+                        {
+                            // Se il file non è stato fornito, gestisci l'errore
+                            ModelState.AddModelError("", "Devi fornire un file.");
+                            return View(nFT); // Ritorna la vista con il modello per mostrare gli errori
+                        }
                     }
                     else
                     {
@@ -124,23 +189,11 @@ namespace Capstone.Controllers
             }
             else
             {
-                // Se lo stato del modello non è valido, stampa i messaggi di errore
-                foreach (var modelState in ModelState.Values)
-                {
-                    foreach (var error in modelState.Errors)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Errore di validazione del modello: " + error.ErrorMessage);
-                    }
-                }
+                // Se lo stato del modello non è valido, ritorna la vista con il modello per mostrare gli errori
+                ViewBag.IdUtente = new SelectList(db.Utenti, "IdUtente", "Email", nFT.IdUtente);
+                return View(nFT);
             }
-
-            // Se il modello non è valido o se si verifica un altro errore, torna alla vista Create con il modello
-            System.Diagnostics.Debug.WriteLine("Creazione NFT fallita.");
-            ViewBag.IdFileNFT = new SelectList(db.FileNFT, "IdFileNFT", "NomeFile", nFT.IdFileNFT);
-            ViewBag.IdUtente = new SelectList(db.Utenti, "IdUtente", "Email", nFT.IdUtente);
-            return View(nFT);
         }
-
 
 
 
@@ -157,7 +210,7 @@ namespace Capstone.Controllers
                 return HttpNotFound();
             }
             ViewBag.IdCollezione = new SelectList(db.Collezioni, "IdCollezione", "NomeCollezione", nFT.IdCollezione);
-            ViewBag.IdFileNFT = new SelectList(db.FileNFT, "IdFileNFT", "NomeFile", nFT.IdFileNFT);
+            //ViewBag.IdFileNFT = new SelectList(db.FileNFT, "IdFileNFT", "NomeFile", nFT.IdFileNFT);
             ViewBag.IdUtente = new SelectList(db.Utenti, "IdUtente", "Email", nFT.IdUtente);
             return View(nFT);
         }
@@ -176,7 +229,7 @@ namespace Capstone.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.IdCollezione = new SelectList(db.Collezioni, "IdCollezione", "NomeCollezione", nFT.IdCollezione);
-            ViewBag.IdFileNFT = new SelectList(db.FileNFT, "IdFileNFT", "NomeFile", nFT.IdFileNFT);
+            //ViewBag.IdFileNFT = new SelectList(db.FileNFT, "IdFileNFT", "NomeFile", nFT.IdFileNFT);
             ViewBag.IdUtente = new SelectList(db.Utenti, "IdUtente", "Email", nFT.IdUtente);
             return View(nFT);
         }

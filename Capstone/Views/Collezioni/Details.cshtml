@@ -50,7 +50,7 @@
                 {
                     <div class="col-md-4 mb-4">
                         <div class="card">
-                            <img src="@Url.Content($"~/Content/Images/NFT/{nft.FileNFT.NomeFile}")" class="card-img-top" alt="NFT Image">
+                            <img src="@Url.Content($"~/Content/Images/NFT/{nft.NomeFile}")" class="card-img-top" alt="NFT Image">
                             <div class="card-body">
                                 <h5 class="card-title">@nft.NomeNFT</h5>
                                 <p class="card-text">Descrizione: @nft.Descrizione</p>
@@ -67,7 +67,7 @@
                 }
             </div>
             <div class="text-center mt-3">
-                @Html.ActionLink("Crea Nuovo NFT", "Create", "FileNFT", new { id = Model.IdCollezione }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Crea Nuovo NFT", "Create", "NFTs", new { id = Model.IdCollezione }, new { @class = "btn btn-success" })
             </div>
         </div>
     </div>

@@ -40,49 +40,43 @@
                     <tbody id="collectionsTableBody">
                         <!-- Qui verranno inserite dinamicamente le righe della tabella -->
                         @foreach (var collezione in Model)
-            {
-                <tr class="vertical-center" onclick="window.location.href='@Url.Action("Details", "Collezioni", new { id = collezione.IdCollezione })'" style="cursor:pointer">
-                    <td><img src="@Url.Content($"~/Content/Images/Collezioni/{collezione.FotoCollezione}")" alt="@collezione.NomeCollezione" width="70" height="70" class="rounded-4" style="object-fit:cover"></td>
-                    <td>@collezione.NomeCollezione</td>
-                    <td>@collezione.Royalties</td>
-                </tr>
-            }
+                        {
+                            <tr class="vertical-center" onclick="window.location.href='@Url.Action("Details", "Collezioni", new { id = collezione.IdCollezione })'" style="cursor:pointer">
+                                <td><img src="@Url.Content($"~/Content/Images/Collezioni/{collezione.FotoCollezione}")" alt="@collezione.NomeCollezione" width="70" height="70" class="rounded-4" style="object-fit:cover"></td>
+                                <td>@collezione.NomeCollezione</td>
+                                <td>@collezione.Royalties</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
 </main>
-<!--<div class="container">
-           <div class="row">-->
-<!-- Esempio di card NFT -->
-<!--<div class="col-md-3 mb-4">
-    <div class="card">
-        <img src="path/to/nft-image.jpg" class="card-img-top" alt="NFT">
-        <div class="card-body">
-            <h5 class="card-title">Nome NFT</h5>
-            <p class="card-text">ID: #12345</p>
-            <p class="card-text"><small class="text-muted">Mi piace: 100</small></p>
-        </div>
-    </div>
-</div>-->
-<!-- Altre card NFT -->
-<!--</div>
-</div>-->
+
 <script>
     // Funzione per filtrare le collezioni per categoria
     function filterCollections(category) {
-        // Esegui qui la logica per filtrare le collezioni in base alla categoria selezionata
-        // Puoi utilizzare AJAX per recuperare le collezioni dal server e aggiornare la tabella dinamicamente
-        // Ad esempio:
-        // $.ajax({
-        //     url: '/Collezioni/GetCollectionsByCategory',
-        //     type: 'GET',
-        //     data: { category: category },
-        //     success: function (data) {
-        //         // Aggiorna la tabella con le nuove collezioni
-        //         $('#collectionsTableBody').html(data);
-        //     }
-        // });
+        console.log(category); // Stampa il valore della categoria nella console del browser
+
+        // Esegui una richiesta AJAX per ottenere le collezioni corrispondenti alla categoria selezionata
+        $.ajax({
+            url: '@Url.Action("GetCollectionsByCategory", "Collezioni")', // Assicurati di sostituire con il percorso corretto del tuo controller
+            type: 'GET',
+            data: { category: category },
+            success: function (data) {
+                // Aggiorna la tabella con le nuove collezioni
+                $('#collectionsTableBody').html(data);
+            },
+            error: function (xhr, status, error) {
+                // Gestisci gli errori in caso di fallimento della richiesta AJAX
+                console.error(error);
+            }
+        });
     }
 </script>
+
+
+
+
+

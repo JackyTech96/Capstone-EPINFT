@@ -14,7 +14,6 @@ namespace Capstone.Models
 
         public virtual DbSet<Categorie> Categorie { get; set; }
         public virtual DbSet<Collezioni> Collezioni { get; set; }
-        public virtual DbSet<FileNFT> FileNFT { get; set; }
         public virtual DbSet<NFT> NFT { get; set; }
         public virtual DbSet<Operazioni> Operazioni { get; set; }
         public virtual DbSet<Transazioni> Transazioni { get; set; }
@@ -37,10 +36,10 @@ namespace Capstone.Models
                 .WithRequired(e => e.Collezioni)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<FileNFT>()
-                .HasMany(e => e.NFT)
-                .WithRequired(e => e.FileNFT)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<FileNFT>()
+            //    .HasMany(e => e.NFT)
+            //    .WithRequired(e => e.FileNFT)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<NFT>()
                 .Property(e => e.Prezzo)

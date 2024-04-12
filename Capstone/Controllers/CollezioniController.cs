@@ -22,6 +22,49 @@ namespace Capstone.Controllers
             return View(collezioni.ToList());
         }
 
+        // GET: Collezioni/MyCollections
+        public ActionResult MyCollections()
+        {
+            // Ottenere l'username dell'utente loggato
+            string username = User.Identity.Name;
+
+            // Trovare l'utente nel database utilizzando l'username
+            var utente = db.Utenti.FirstOrDefault(u => u.Username == username);
+
+            if (utente != null)
+            {
+                // Trova tutte le collezioni create dall'utente loggato
+                var collezioniUtente = db.Collezioni.Where(c => c.IdUtente == utente.IdUtente).ToList();
+
+                return View(collezioniUtente);
+            }
+            else
+            {
+                // Se l'utente non è trovato, gestisci l'errore appropriato
+                TempData["error"] = "Utente non trovato.";
+                return RedirectToAction("Index");
+            }
+        }
+
+        // Collezioni per categoria
+        public ActionResult GetCollectionsByCategory(string category)
+        {
+            // Se la categoria è "Tutti" o è nulla, restituisci tutte le collezioni
+            if (string.IsNullOrEmpty(category) || category == "Tutti")
+            {
+                var collections = db.Collezioni.ToList();
+                return PartialView("_CollectionsPartial", collections);
+            }
+            else
+            {
+                // Altrimenti, restituisci le collezioni corrispondenti alla categoria specificata
+                var collections = db.Collezioni.Where(c => c.Categorie.NomeCategoria == category).ToList();
+                return PartialView("_CollectionsPartial", collections);
+            }
+        }
+
+
+
         // GET: Collezioni/Details/5
         public ActionResult Details(int? id)
         {
@@ -98,7 +141,7 @@ namespace Capstone.Controllers
                         if (decimal.TryParse(RoyaltiesPercentage, out decimal royalties))
                         {
                             //Assicurati che la percentuale di royalties sia compresa tra 0 e 100
-                            if(royalties >= 0 && royalties <= 100)
+                            if (royalties >= 0 && royalties <= 100)
                             {
                                 //Converti la percentuale in formato decimal
                                 collezioni.Royalties = royalties / 100;
@@ -128,6 +171,7 @@ namespace Capstone.Controllers
                     // Aggiunge la collezione al database
                     db.Collezioni.Add(collezioni);
                     db.SaveChanges();
+                    TempData["success"] = "La collezione è stata creata con successo!";
                     return RedirectToAction("Index");
                 }
             }
@@ -136,6 +180,7 @@ namespace Capstone.Controllers
             // Se il modello non è valido, restituisce la vista
             ViewBag.IdCategoria = new SelectList(db.Categorie, "IdCategoria", "NomeCategoria", collezioni.IdCategoria);
             ViewBag.IdUtente = new SelectList(db.Utenti, "IdUtente", "Email", collezioni.IdUtente);
+            TempData["error"] = "Si è verificato un errore durante la creazione della collezione.";
             return View(collezioni);
         }
 

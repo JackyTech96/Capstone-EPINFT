@@ -47,7 +47,7 @@
             </ul>
             <hr />
             <h4>Deposito/Prelievo</h4>
-            @using (Html.BeginForm("DepositWithdraw", "Wallets", FormMethod.Post))
+            @using (Html.BeginForm("ProcessTransaction", "Wallets", FormMethod.Post))
             {
                 <div class="form-group">
                     <label for="amount">Importo:</label>

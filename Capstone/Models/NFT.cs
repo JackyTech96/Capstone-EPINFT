@@ -22,7 +22,11 @@ namespace Capstone.Models
 
         public int IdCollezione { get; set; }
 
-        public int IdFileNFT { get; set; }
+        public int IdProprietario { get; set; }
+
+        public string NomeFile { get; set; }
+
+        public string TipoFile { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -37,8 +41,6 @@ namespace Capstone.Models
         public bool IsDisponibile { get; set; }
 
         public virtual Collezioni Collezioni { get; set; }
-
-        public virtual FileNFT FileNFT { get; set; }
 
         public virtual Utenti Utenti { get; set; }
 

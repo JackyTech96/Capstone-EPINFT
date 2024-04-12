@@ -143,7 +143,7 @@ namespace Capstone.Controllers
         }
 
         [HttpPost]
-        public ActionResult DepositWithdraw(decimal amount, string type)
+        public ActionResult ProcessTransaction(decimal amount, string type)
         {
             // Ottenere l'ID dell'utente loggato
             string username = User.Identity.Name;
@@ -164,6 +164,14 @@ namespace Capstone.Controllers
                     else if (type == "Prelievo" && wallet.Saldo >= amount)
                     {
                         wallet.Saldo -= amount;
+                    }
+                    else if (type == "Acquisto" && wallet.Saldo >= amount)
+                    {
+                        wallet.Saldo -= amount;
+                    }
+                    else if (type == "Vendita")
+                    {
+                        wallet.Saldo += amount;
                     }
                     else
                     {

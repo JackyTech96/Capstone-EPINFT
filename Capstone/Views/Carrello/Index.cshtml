@@ -1,18 +1,13 @@
 ﻿@model Capstone.Models.Carrello
 
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Checkout";
 }
 
+@Html.Partial("_Notification")
+
 <div class="container mt-5 py-5">
-    <h2 class="text-white">Carrello</h2>
-    @if (TempData["Errore"] != null)
-    {
-        <div class="alert alert-danger" role="alert">
-            @TempData["Errore"]
-        </div>
-    }
+    <h2 class="text-white">Checkout</h2>
     <table class="table text-white">
         <thead>
             <tr>
@@ -28,7 +23,7 @@
             @foreach (var item in Model.Items)
             {
                 <tr>
-                    <td><img src="@Url.Content($"~/Content/Images/NFT/{item.NFTItem.FileNFT.NomeFile}")" alt="Immagine NFT" style="max-height: 100px; max-width: 100px;" /></td>
+                    <td><img src="@Url.Content($"~/Content/Images/NFT/{item.NFTItem.NomeFile}")" alt="Immagine NFT" style="max-height: 100px; max-width: 100px;" /></td>
                     <td>@item.NFTItem.NomeNFT</td>
                     <td>@item.NFTItem.Descrizione</td>
                     <td>@item.NFTItem.Prezzo</td>
@@ -40,8 +35,8 @@
             }
         </tbody>
     </table>
-    <div>
+    <div class="text-end">
         <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Continua gli acquisti</a>
+        @Html.ActionLink("Completa l'acquisto", "Checkout", "Carrello", null, new { @class = "btn btn-success" })
     </div>
 </div>
-

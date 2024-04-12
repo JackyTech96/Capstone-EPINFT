@@ -135,7 +135,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CarrelloController.cs" />
     <Compile Include="Controllers\CollezioniController.cs" />
-    <Compile Include="Controllers\FileNFTController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NFTsController.cs" />
     <Compile Include="Controllers\UtentiController.cs" />
@@ -143,10 +142,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404101340293_Initial.cs" />
+    <Compile Include="Migrations\202404101340293_Initial.designer.cs">
+      <DependentUpon>202404101340293_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404121241273_CampoIdProprietarioNFT.cs" />
+    <Compile Include="Migrations\202404121241273_CampoIdProprietarioNFT.designer.cs">
+      <DependentUpon>202404121241273_CampoIdProprietarioNFT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Carrello.cs" />
     <Compile Include="Models\Categorie.cs" />
     <Compile Include="Models\Collezioni.cs" />
-    <Compile Include="Models\FileNFT.cs" />
     <Compile Include="Models\ModelDbContext.cs" />
     <Compile Include="Models\NFT.cs" />
     <Compile Include="Models\Operazioni.cs" />
@@ -387,6 +394,9 @@
     <Content Include="Views\Wallets\Index.cshtml" />
     <Content Include="Views\Wallets\MyWallet.cshtml" />
     <Content Include="Views\Carrello\Index.cshtml" />
+    <Content Include="Views\Shared\_CollectionsPartial.cshtml" />
+    <Content Include="Views\Shared\_Notification.cshtml" />
+    <Content Include="Views\Collezioni\MyCollections.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -425,6 +435,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202404101340293_Initial.resx">
+      <DependentUpon>202404101340293_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404121241273_CampoIdProprietarioNFT.resx">
+      <DependentUpon>202404121241273_CampoIdProprietarioNFT.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

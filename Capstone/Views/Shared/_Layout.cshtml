@@ -83,7 +83,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>@Html.ActionLink("Il Mio Profilo", "MyProfile", "Utenti", new { area = "" }, new { @class = "dropdown-item" })</li>
                                 <li>@Html.ActionLink("Wallet", "MyWallet", "Wallets", new { area = "" }, new { @class = "dropdown-item" })</li>
-                                <li>@Html.ActionLink("Le Mie Collezioni", "", "", new { area = "" }, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("Le Mie Collezioni", "MyCollections", "Collezioni", new { area = "" }, new { @class = "dropdown-item" })</li>
                                 <li>@Html.ActionLink("Impostazioni", "Edit", "Utenti", new { id = User.Identity.Name }, new { @class = "dropdown-item" })</li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>@Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "dropdown-item" })</li>
