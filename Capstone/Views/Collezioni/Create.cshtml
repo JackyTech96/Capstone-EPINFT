@@ -50,17 +50,17 @@
 
         <!-- Royalties -->
         <div class="form-group">
-            @Html.LabelFor(model => model.Royalties, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("RoyaltiesPercentage", "Royalties", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Royalties, new { htmlAttributes = new { @class = "form-control", type="text" } })
-                @Html.ValidationMessageFor(model => model.Royalties, "", new { @class = "text-danger" })
+                <input type="text" name="RoyaltiesPercentage" class="form-control" />
+                @Html.ValidationMessage("RoyaltiesPercentage", "", new { @class = "text-danger" })
             </div>
         </div>
 
         <!-- FotoCollezione -->
         <div class="form-group">
             @Html.LabelFor(model => model.FotoCollezione, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">  
+            <div class="col-md-10">
                 <input type="file" name="uploadedFile" />
                 @Html.ValidationMessageFor(model => model.FotoCollezione, "", new { @class = "text-danger" })
             </div>

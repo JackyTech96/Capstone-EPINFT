@@ -23,15 +23,15 @@
     --field-drab: #574d3e;
     --red-crayola: #ff3d8e;
     --teal: #008080;
+    --deep-teal: #004F5E;
     --midnight-teal: #002535;
-    --turquoise: #05d8d1;
+    --turquoise: #00c9b7;
     --golden-puppy: #ffcc33;
     --quick-silver: #a3a3a3;
     --sonic-silver: #707070;
     --eerie-black-1: #262626;
     --eerie-black-2: #121212;
     --rich-black-fogra-39: #050505;
-   
     /* transition*/
     --transition: 0.15s ease-in-out;
 }
@@ -88,7 +88,7 @@ i {
 }
 
 .bg-card{
-    background-color: var(--graphite-gray);
+    background-color: var(--deep-teal);
 }
 
 /*-----------------------------------*\
@@ -147,8 +147,8 @@ nav.custom-background {
 \*-----------------------------------*/
 
 
-.bg-form {
-    background-color: var(--teal);
+.bg-nft {
+    background-color: var(--graphite-gray);
 }
 
 .italic {
@@ -189,3 +189,15 @@ footer span {
 .vertical-center {
     vertical-align:middle;
 }
+
+/*-----------------------------------*\
+ * #NFT
+\*-----------------------------------*/
+
+.card-nft {
+    transition: transform .4s;
+}
+
+    .card-nft:hover {
+        transform: scale(1.1);
+    }

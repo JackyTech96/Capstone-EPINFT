@@ -2,9 +2,10 @@
 
 @{
     ViewBag.Title = "Dettagli Collezione";
+    var isCreator = ViewBag.IsCreator ?? false; // Imposta il valore predefinito a false se non è presente nella ViewBag
 }
 
-<div class="container mt-5">
+<div class="container mt-5 py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -22,10 +23,7 @@
                                 <div class="col-md-6">
                                     <p><strong>Categoria:</strong> @Model.Categorie.NomeCategoria</p>
                                     <p><strong>Data di Creazione:</strong> @Model.DataCreazione.ToShortDateString()</p>
-                                    <p><strong>Royalties:</strong> @Model.Royalties</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <!-- Aggiungi altre informazioni della collezione qui -->
+                                    <p><strong>Royalties:</strong> @(Model.Royalties * 100)%</p>
                                 </div>
                             </div>
                             <!-- Aggiungi pulsanti o azioni per la collezione -->
@@ -44,22 +42,26 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h3 class="text-center mb-4">NFT nella Collezione</h3>
+            <h3 class="text-center mb-4 text-white">NFT nella Collezione</h3>
             <div class="row">
                 @foreach (var nft in Model.NFT)
                 {
                     <div class="col-md-4 mb-4">
-                        <div class="card">
+                        <div class="card card-nft bg-card text-white">
                             <img src="@Url.Content($"~/Content/Images/NFT/{nft.NomeFile}")" class="card-img-top" alt="NFT Image">
                             <div class="card-body">
                                 <h5 class="card-title">@nft.NomeNFT</h5>
-                                <p class="card-text">Descrizione: @nft.Descrizione</p>
-                                <p class="card-text">Prezzo: @nft.Prezzo</p>
-                                <!-- Aggiungi altre informazioni sull'NFT se necessario -->
+                                <p class="card-text">Prezzo: @nft.Prezzo EPC</p>
                                 @if (nft.IsDisponibile)
                                 {
-                                    <!-- Aggiungi l'URL dell'azione "AggiungiAlCarrello" con il parametro idNFT -->
-                                    <a href="@Url.Action("AggiungiAlCarrello", "Carrello", new { idNFT = nft.IdNFT, quantita = 1 })" class="btn btn-primary">Aggiungi al Carrello</a>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="@Url.Action("AggiungiAlCarrello", "Carrello", new { idNFT = nft.IdNFT, quantita = 1 })" class="btn btn-custom">Acquista</a>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <p class="text-muted text-center">Non Disponibile</p>
                                 }
                             </div>
                         </div>
@@ -67,7 +69,10 @@
                 }
             </div>
             <div class="text-center mt-3">
-                @Html.ActionLink("Crea Nuovo NFT", "Create", "NFTs", new { id = Model.IdCollezione }, new { @class = "btn btn-success" })
+                @if (isCreator)
+                {
+                    @Html.ActionLink("Crea Nuovo NFT", "Create", "NFTs", new { id = Model.IdCollezione }, new { @class = "btn btn-success" })
+                }
             </div>
         </div>
     </div>

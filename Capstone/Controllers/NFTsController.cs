@@ -17,9 +17,60 @@ namespace Capstone.Controllers
 
         // GET: NFTs
         public ActionResult Index()
+        {        
+            return View();
+        }
+
+        // GET: NFTs Utente
+        public ActionResult MyNFTs()
         {
-            //var nFT = db.NFT.Include(n => n.Collezioni).Include(n => n.FileNFT).Include(n => n.Utenti);
-            return View(/*nFT.ToList()*/);
+            // Ottieni l'ID dell'utente loggato
+            var utente = db.Utenti.FirstOrDefault(u => u.Username == User.Identity.Name);
+            
+            if(utente != null)
+            {
+                // Ottieni tutti i NFT dell'utente
+                var nftsUtente = db.NFT.Where(n => n.IdProprietario == utente.IdUtente).ToList();
+                return View(nftsUtente);
+            }
+            // Se l'utente non è trovato, reindirizza o mostra un messaggio di errore
+            TempData["error"] = "Utente non trovato";
+            return RedirectToAction("Index", "Home");
+        }
+
+        //GET: NFTs/InVendita
+        [HttpGet]
+        public ActionResult InVendita(int id)
+        {
+            var nft = db.NFT.FirstOrDefault(n => n.IdNFT == id);
+
+            if (nft != null)
+            {
+                return View(nft);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        //POST: NFTs/InVendita
+        [HttpPost]
+        public ActionResult InVendita(int id, decimal nuovoPrezzo)
+        {
+            var nft = db.NFT.FirstOrDefault(n => n.IdNFT == id);
+
+            if (nft != null)
+            {
+                nft.Prezzo = nuovoPrezzo;
+                nft.IsDisponibile = true;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // GET: NFTs/Details/5
@@ -45,45 +96,27 @@ namespace Capstone.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            // Assegna l'IdCollezione alla TempData anziché alla ViewBag
-            TempData["IdCollezione"] = id;
-            System.Diagnostics.Debug.WriteLine("Value of IdCollezione in TempData: " + id);
+            //Ottieni l'utente corrente
+            var currentUser = db.Utenti.FirstOrDefault(u => u.Username == User.Identity.Name);
 
+            //Ottieni la collezione associata all'ID
+            var collezione = db.Collezioni.FirstOrDefault(c => c.IdCollezione == id);
+
+            //Verifica se la collezione esiste e se l'utente corrente è proprietario della collezione
+            if (collezione != null && collezione.IdUtente == currentUser.IdUtente)
+            {
+                // Assegna l'IdCollezione alla TempData anziché alla ViewBag
+                TempData["IdCollezione"] = id;
+                System.Diagnostics.Debug.WriteLine("Value of IdCollezione in TempData: " + id);
+            }
+            else
+            {
+                // Se l'utente corrente non è il creatore della collezione, reindirizza a una pagina di errore o a un'altra pagina appropriata
+                TempData["error"] = "Non hai il permesso di creare NFT all'interno di questa collezione.";
+                return RedirectToAction("Index", "Home"); // Reindirizza alla home page
+            }
             return View();
         }
-        //public ActionResult Create(int? idCollezione)
-        //{
-        //    // Ottenere l'ID dell'utente loggato
-        //    string username = User.Identity.Name;
-        //    var utente = db.Utenti.FirstOrDefault(u => u.Username == username);
-
-        //    // Verifica se l'utente è valido
-        //    if (utente == null)
-        //    {
-        //        return RedirectToAction("Index", "Home"); // Reindirizza se l'utente non è valido
-        //    }
-
-        //    // Imposta l'ID utente dell'NFT con l'ID dell'utente loggato
-        //    ViewBag.IdUtente = utente.IdUtente;
-
-        //    // Verifica se è stato passato un ID di collezione valido
-        //    if (idCollezione != null)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine("ID di collezione valido: " + idCollezione);
-        //        // Utilizza l'ID della collezione passato come parametro
-        //        ViewBag.IdCollezione = idCollezione;
-        //        //ViewBag.IdFileNFT = new SelectList(db.FileNFT, "IdFileNFT", "NomeFile");
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        System.Diagnostics.Debug.WriteLine("ID di collezione non valido");
-        //        // Se l'ID della collezione non è valido, reindirizza a una pagina di errore o fai un'altra gestione
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //}
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

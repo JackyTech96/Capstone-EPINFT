@@ -1,0 +1,36 @@
+﻿@model List<Capstone.Models.NFT>
+
+<div class="container mt-5 py-5">
+    <h2 class="text-white mb-3">NFT Posseduti</h2>
+    <div class="row">
+        @foreach (var nft in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card card-nft text-white bg-nft">
+                    <img src="@Url.Content($"~/Content/Images/NFT/{nft.NomeFile}")" class="card-img-top" alt="NFT Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@nft.NomeNFT</h5>
+                        <p class="card-text">Prezzo: @nft.Prezzo EPC</p>
+                        @if (!nft.IsDisponibile)
+                        {
+                            <form method="post" action="@Url.Action("InVendita", "NFTs", new { id = nft.IdNFT })">
+                                <div class="mb-3">
+                                    <label for="nuovoPrezzo" class="form-label">Nuovo Prezzo</label>
+                                    <input type="number" class="form-control" id="nuovoPrezzo" name="nuovoPrezzo" required>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-custom">Metti in Vendita</button>
+                                </div>
+                               
+                            </form>
+                        }
+                        else
+                        {
+                            <p class="text-muted text-center">In Vendita</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

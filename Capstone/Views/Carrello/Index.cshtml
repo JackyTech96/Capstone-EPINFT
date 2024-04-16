@@ -8,35 +8,50 @@
 
 <div class="container mt-5 py-5">
     <h2 class="text-white">Checkout</h2>
-    <table class="table text-white">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Nome NFT</th>
-                <th>Descrizione</th>
-                <th>Prezzo</th>
-                <th>Quantità</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Items)
-            {
+    @if (Model.Items != null && Model.Items.Any())
+    {
+        <table class="table text-white">
+            <thead>
                 <tr>
-                    <td><img src="@Url.Content($"~/Content/Images/NFT/{item.NFTItem.NomeFile}")" alt="Immagine NFT" style="max-height: 100px; max-width: 100px;" /></td>
-                    <td>@item.NFTItem.NomeNFT</td>
-                    <td>@item.NFTItem.Descrizione</td>
-                    <td>@item.NFTItem.Prezzo</td>
-                    <td>@item.Quantita</td>
-                    <td>
-                        <a href="@Url.Action("RimuoviDalCarrello", "Carrello", new { idNFT = item.NFTItem.IdNFT })">Rimuovi</a>
-                    </td>
+                    <th></th>
+                    <th>Nome NFT</th>
+                    <th>Descrizione</th>
+                    <th>Prezzo</th>System.NullReferenceException: 'Riferimento a un oggetto non impostato su un'istanza di oggetto.'
+
+                    System.Web.Mvc.WebViewPage
+                    <TModel>
+                        .Model.get ha restituito null.
+
+                        <th>Quantità</th>
+                        <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <div class="text-end">
-        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Continua gli acquisti</a>
-        @Html.ActionLink("Completa l'acquisto", "Checkout", "Carrello", null, new { @class = "btn btn-success" })
-    </div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td><img src="@Url.Content($"~/Content/Images/NFT/{item.NFTItem.NomeFile}")" alt="Immagine NFT" style="max-height: 100px; max-width: 100px;" /></td>
+                        <td>@item.NFTItem.NomeNFT</td>
+                        <td>@item.NFTItem.Descrizione</td>
+                        <td>@item.NFTItem.Prezzo</td>
+                        <td>@item.Quantita</td>
+                        <td>
+                            <a href="@Url.Action("RimuoviDalCarrello", "Carrello", new { idNFT = item.NFTItem.IdNFT })">Rimuovi</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-end">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Continua gli acquisti</a>
+            @Html.ActionLink("Completa l'acquisto", "Checkout", "Carrello", null, new { @class = "btn btn-success" })
+        </div>
+    }
+    else
+    {
+        <div class="text-white">
+            <p>Il carrello è vuoto. Continua ad esplorare il nostro catalogo per aggiungere articoli.</p>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Esplora il catalogo</a>
+        </div>
+    }
 </div>

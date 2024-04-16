@@ -3,5 +3,176 @@
     ViewBag.Title = "Dashboard";
 }
 
-<h2>Admin Dashboard</h2>
+<main class="content mt-5 py-5">
+    <div class="container-fluid p-0">
+        <h2 class="mb-3 text-white">
+            Admin Dashboard
+        </h2>
+        <div class="row">
+            <div class="col-xl-6 col-xxl-5 d-flex">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row align-baseline">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title text-secondary">Collezioni</h5>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="bi bi-collection fs-4"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h2 id="totalCollections" class="mt-1 mb-3"></h2>
+                                    <div class="mb-0">
+                                        <span class="text-muted">Numero totale di collezioni</span>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-baseline">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title text-secondary">Utenti</h5>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="bi bi-people fs-4"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h2 id="totalUsers" class="mt-1 mb-3"></h2>
+                                    <div class="mb-0">
+                                        <span class="text-danger">-3.65%</span>
+                                        <span class="text-muted">Since last week</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row align-baseline">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title text-secondary">Sales</h5>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="bi bi-shop fs-4"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h2 class="mt-1 mb-3">2.382</h2>
+                                    <div class="mb-0">
+                                        <span class="text-danger">-3.65%</span>
+                                        <span class="text-muted">Since last week</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-baseline">
+                                        <div class="col mt-0">
+                                            <h5 class="card-title text-secondary">Sales</h5>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="stat text-primary">
+                                                <i class="bi bi-shop fs-4"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h2 class="mt-1 mb-3">2.382</h2>
+                                    <div class="mb-0">
+                                        <span class="text-danger">-3.65%</span>
+                                        <span class="text-muted">Since last week</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-xxl-7">
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+                        <div class="card-title mb-0">Recent Movement</div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="lineChart" width="400" height="138"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<<script>
+    // Dati di esempio per il grafico della linea
+    var lineChartData = {
+        labels: ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"],
+        datasets: [{
+            label: 'My Dataset',
+            data: [65, 59, 80, 81, 56, 55, 40, 50, 72, 65, 82, 75],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+    };
+
+    // Opzioni per il grafico della linea
+    var lineChartOptions = {
+        responsive: true
+    };
+
+    // Ottieni il contesto del canvas
+    var ctx = document.getElementById('lineChart').getContext('2d');
+
+    // Crea il grafico della linea
+    new Chart(ctx, {
+        type: 'line',
+        data: lineChartData,
+        options: lineChartOptions
+    });
+</script>
+ <script>
+     document.addEventListener('DOMContentLoaded', function () {
+         fetch('/Collezioni/GetTotalCollections')
+             .then(response => {
+                 if (!response.ok) {
+                     throw new Error('Errore nel caricamento dei dati');
+                 }
+                 return response.json();
+             })
+             .then(data => {
+                 document.getElementById('totalCollections').textContent = data;
+             })
+             .catch(error => {
+                 console.error(error);
+                 document.getElementById('totalCollections').textContent = 'Errore nel caricamento dei dati';
+             });
+     });
+ </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/Utenti/GetTotalUsers')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nel caricamento dei dati');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('totalUsers').textContent = data;
+            })
+            .catch(error => {
+                console.error(error);
+                document.getElementById('totalUsers').textContent = 'Errore nel caricamento dei dati';
+            });
+    });
+</script>

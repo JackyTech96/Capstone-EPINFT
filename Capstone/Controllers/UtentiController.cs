@@ -38,13 +38,20 @@ namespace Capstone.Controllers
             return View(utente);
         }
 
-
         // GET: Utenti
         public ActionResult Index()
         {
             return View(db.Utenti.ToList());
         }
 
+        // Azione per mostrare il numero totale di utenti nel database
+        [HttpGet]
+        public ActionResult GetTotalUsers()
+        {
+            // Recupera il numero totale di utenti dal database
+            var totalUsers = db.Utenti.Count();
+            return Json(totalUsers, JsonRequestBehavior.AllowGet);
+        }
         // GET: Utenti/Details/5
         public ActionResult Details(int? id)
         {

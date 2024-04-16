@@ -185,7 +185,9 @@
     <Content Include="Content\Images\bidding-user.png" />
     <Content Include="Content\Images\bitgo-logo-white.inline.svg" />
     <Content Include="Content\Images\bitgo.svg" />
+    <Content Include="Content\Images\cart.png" />
     <Content Include="Content\Images\coinbase.svg" />
+    <Content Include="Content\Images\collections.png" />
     <Content Include="Content\Images\Collezioni\Bored.Ape.Yacht.Club.jpg" />
     <Content Include="Content\Images\exodus.jpg" />
     <Content Include="Content\Images\Exodus_logo_white.svg" />
@@ -199,7 +201,6 @@
     <Content Include="Content\Images\explore-product-8.jpg" />
     <Content Include="Content\Images\facebook.svg" />
     <Content Include="Content\Images\hero-banner.jpeg" />
-    <Content Include="Content\Images\hero-banner.jpg" />
     <Content Include="Content\Images\item-bg-1.jpg" />
     <Content Include="Content\Images\item-bg-2.jpg" />
     <Content Include="Content\Images\item-bg-3.jpg" />
@@ -213,6 +214,7 @@
     <Content Include="Content\Images\new-item-2.jpg" />
     <Content Include="Content\Images\new-item-3.jpg" />
     <Content Include="Content\Images\new-item-4.jpg" />
+    <Content Include="Content\Images\nft.png" />
     <Content Include="Content\Images\NFT\Ape1.jpg" />
     <Content Include="Content\Images\playstore.png" />
     <Content Include="Content\Images\seller-01.png" />
@@ -237,6 +239,7 @@
     <Content Include="Content\Images\user.png" />
     <Content Include="Content\Images\Utenti\bitgo.jpg" />
     <Content Include="Content\Images\Utenti\profilo.png" />
+    <Content Include="Content\Images\wallet.png" />
     <Content Include="Content\Images\youtube.svg" />
     <Content Include="Content\Videos\NFT\Otherside Trailer.mp4" />
     <Content Include="favicon.ico" />
@@ -397,6 +400,7 @@
     <Content Include="Views\Shared\_CollectionsPartial.cshtml" />
     <Content Include="Views\Shared\_Notification.cshtml" />
     <Content Include="Views\Collezioni\MyCollections.cshtml" />
+    <Content Include="Views\NFTs\MyNFTs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

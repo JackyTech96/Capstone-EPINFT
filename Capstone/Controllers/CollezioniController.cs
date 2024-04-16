@@ -11,6 +11,7 @@ using Capstone.Models;
 
 namespace Capstone.Controllers
 {
+    [Authorize]
     public class CollezioniController : Controller
     {
         private ModelDbContext db = new ModelDbContext();
@@ -63,6 +64,21 @@ namespace Capstone.Controllers
             }
         }
 
+        //Azione per recuperare il numero di collezioni presenti nel database
+        [HttpGet]
+        public ActionResult GetTotalCollections()
+        {
+            // Recupera il numero totale di collezioni dal database
+            var totalCollections = db.Collezioni.Count();
+
+            // Esempio di debug per verificare il numero totale di collezioni
+            System.Diagnostics.Debug.WriteLine("Numero totale di collezioni: " + totalCollections);
+
+
+            // Restituisci il numero totale di collezioni in formato JSON
+            return Json(totalCollections, JsonRequestBehavior.AllowGet);
+        }
+
 
 
         // GET: Collezioni/Details/5
@@ -82,6 +98,13 @@ namespace Capstone.Controllers
             {
                 return HttpNotFound();
             }
+
+            //Verifica se l'utente corrente e' l'autore della collezione
+            var currentUser = db.Utenti.FirstOrDefault(u => u.Username == User.Identity.Name);
+            var isCreator = collezioneWithNFTs.IdUtente == currentUser.IdUtente;
+
+            //Passa l'informazione se l'utente corrente e' l'autore della collezione
+            ViewBag.IsCreator = isCreator;
 
             return View(collezioneWithNFTs);
         }
