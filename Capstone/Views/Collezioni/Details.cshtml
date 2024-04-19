@@ -5,6 +5,20 @@
     var isCreator = ViewBag.IsCreator ?? false; // Imposta il valore predefinito a false se non è presente nella ViewBag
 }
 
+<style>
+    .audio-container .play-button {
+        background: transparent;
+        border: none;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+    }
+
+        .audio-container .play-button i {
+            font-size: 24px;
+        }
+</style>
+
 <div class="container mt-5 py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -48,7 +62,35 @@
                 {
                     <div class="col-md-4 mb-4">
                         <div class="card card-nft bg-card text-white">
-                            <img src="@Url.Content($"~/Content/Images/NFT/{nft.NomeFile}")" class="card-img-top" alt="NFT Image">
+                            @switch (nft.TipoFile)
+                            {
+                                case "Immagine":
+                                    <img src="@Url.Content($"~/Content/Images/NFT/{nft.NomeFile}")" class="card-img-top" alt="NFT Image">
+                                    break;
+                                case "Video":
+                                    <video controls class="card-img-top">
+                                        <source src="@Url.Content($"~/Content/Videos/NFT/{nft.NomeFile}")" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    break;
+                                case "Audio":
+                                    <div class="audio-container" style="position: relative;">
+                                        <img src="@Url.Content($"~/Content/Images/astronauta-music.jpeg")" class="card-img-top" alt="Fixed Image">
+                                        <audio id="audio-nft-@nft.IdNFT" style="display: none;">
+                                            <source src="@Url.Content($"~/Content/Audios/NFT/{nft.NomeFile}")" type="audio/mp3">
+                                            Your browser does not support the audio tag.
+                                        </audio>
+                                        <button onclick="togglePlay(@nft.IdNFT)" class="play-button" style="position: absolute; top: 85%; left: 89%; transform: translate(-50%, -50%);">
+                                           <div class="rounded rounded-circle p-1 d-flex justify-content-center align-items-center" style="background-color: rgba(159, 159, 159, 0.4)">
+                                               <i id="play-icon" class="bi bi-play text-white"></i>
+                                            </div>                                           
+                                        </button>
+                                    </div>
+                                    break;
+                                default:
+                                    <p>Contenuto non supportato</p>
+                                    break;
+                            }
                             <div class="card-body">
                                 <h5 class="card-title">@nft.NomeNFT</h5>
                                 <p class="card-text">Prezzo: @nft.Prezzo EPC</p>
@@ -57,7 +99,6 @@
                                     <div class="d-flex justify-content-center">
                                         <a href="@Url.Action("AggiungiAlCarrello", "Carrello", new { idNFT = nft.IdNFT, quantita = 1 })" class="btn btn-custom">Acquista</a>
                                     </div>
-
                                 }
                                 else
                                 {
@@ -77,3 +118,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    function togglePlay(idNFT) {
+        var audio = document.getElementById('audio-nft-' + idNFT);
+        var button = document.querySelector('.audio-container .play-button i');
+        if (audio.paused) {
+            audio.play();
+            button.classList.add('bi-pause');
+            button.classList.remove('bi-play');
+        } else {
+            audio.pause();
+            button.classList.add('bi-play');
+            button.classList.remove('bi-pause');
+        }
+    }
+</script>

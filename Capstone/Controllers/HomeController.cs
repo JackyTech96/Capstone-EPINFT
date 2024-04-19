@@ -17,6 +17,12 @@ namespace Capstone.Controllers
             return View();
         }
 
+        // Action per visualizzare il blog
+        public ActionResult Blog()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

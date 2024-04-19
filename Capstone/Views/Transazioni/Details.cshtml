@@ -1,0 +1,58 @@
+﻿@model Capstone.Models.Transazioni
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transazioni</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NFT.NomeFile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NFT.NomeFile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utenti.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utenti.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utenti1.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utenti1.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Importo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Importo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataTransazione)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataTransazione)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdTransazione }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

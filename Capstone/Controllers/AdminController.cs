@@ -12,6 +12,7 @@ namespace Capstone.Controllers
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
+        private ModelDbContext db = new ModelDbContext();
         // GET: Admin
         public ActionResult Index()
         {

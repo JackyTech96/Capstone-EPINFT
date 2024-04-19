@@ -204,7 +204,27 @@ namespace Capstone.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        // Azione per recuperare il saldo del wallet dell'utente Admin
+        public ActionResult GetAdminWalletBalance()
+        {
+            // Recupera l'utente admin dal database
+            var admin = db.Utenti.FirstOrDefault(u => u.Ruolo == "admin");
 
+            if (admin != null)
+            {
+                // Recupera il wallet dell'utente admin
+                var adminWallet = db.Wallets.FirstOrDefault(w => w.IdUtente == admin.IdUtente);
+
+                if (adminWallet != null)
+                {
+                    // Restituisce il saldo del wallet dell'utente admin
+                    return Json(adminWallet.Saldo, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            // Se non è stato possibile recuperare il saldo del wallet dell'utente admin, restituisci 0 come valore di default
+            return Json(0, JsonRequestBehavior.AllowGet);
+        }
 
         protected override void Dispose(bool disposing)
         {

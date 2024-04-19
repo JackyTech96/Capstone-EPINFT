@@ -16,25 +16,28 @@
                     <th></th>
                     <th>Nome NFT</th>
                     <th>Descrizione</th>
-                    <th>Prezzo</th>System.NullReferenceException: 'Riferimento a un oggetto non impostato su un'istanza di oggetto.'
-
-                    System.Web.Mvc.WebViewPage
-                    <TModel>
-                        .Model.get ha restituito null.
-
-                        <th>Quantità</th>
-                        <th></th>
+                    <th>Prezzo</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.Items)
                 {
-                    <tr>
-                        <td><img src="@Url.Content($"~/Content/Images/NFT/{item.NFTItem.NomeFile}")" alt="Immagine NFT" style="max-height: 100px; max-width: 100px;" /></td>
+                    <tr class="vertical-center">
+                        <td>
+                            @if (item.NFTItem.TipoFile == "Audio")
+                            {
+
+                                <img src="@Url.Content($"~/Content/Images/astronauta-music.jpeg")" alt="Fixed Image" style="max-height: 100px; max-width: 100px;">
+                            }
+                            else
+                            {
+                                <img src="@Url.Content($"~/Content/Images/NFT/{item.NFTItem.NomeFile}")" alt="Immagine NFT" style="max-height: 100px; max-width: 100px;" />
+                            }
+                        </td>
                         <td>@item.NFTItem.NomeNFT</td>
                         <td>@item.NFTItem.Descrizione</td>
-                        <td>@item.NFTItem.Prezzo</td>
-                        <td>@item.Quantita</td>
+                        <td>@item.NFTItem.Prezzo</td>                     
                         <td>
                             <a href="@Url.Action("RimuoviDalCarrello", "Carrello", new { idNFT = item.NFTItem.IdNFT })">Rimuovi</a>
                         </td>

@@ -1,5 +1,19 @@
 ﻿@model List<Capstone.Models.NFT>
 
+<style>
+    .audio-container .play-button {
+        background: transparent;
+        border: none;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+    }
+
+        .audio-container .play-button i {
+            font-size: 24px;
+        }
+</style>
+
 <div class="container mt-5 py-5">
     <h2 class="text-white mb-3">NFT Posseduti</h2>
     <div class="row">
@@ -7,7 +21,25 @@
         {
             <div class="col-md-4 mb-4">
                 <div class="card card-nft text-white bg-nft">
-                    <img src="@Url.Content($"~/Content/Images/NFT/{nft.NomeFile}")" class="card-img-top" alt="NFT Image">
+                    @if (nft.TipoFile == "Audio")
+                    {
+                        <div class="audio-container" style="position: relative;">
+                            <img src="@Url.Content($"~/Content/Images/astronauta-music.jpeg")" class="card-img-top" alt="Fixed Image">
+                            <audio id="audio-nft-@nft.IdNFT" style="display: none;">
+                                <source src="@Url.Content($"~/Content/Audios/NFT/{nft.NomeFile}")" type="audio/mp3">
+                                Your browser does not support the audio tag.
+                            </audio>
+                            <button onclick="togglePlay(@nft.IdNFT)" class="play-button" style="position: absolute; top: 85%; left: 89%; transform: translate(-50%, -50%);">
+                                <div class="rounded rounded-circle p-1 d-flex justify-content-center align-items-center" style="background-color: rgba(159, 159, 159, 0.4)">
+                                    <i id="play-icon" class="bi bi-play text-white"></i>
+                                </div>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="@Url.Content($"~/Content/Images/NFT/{nft.NomeFile}")" class="card-img-top" alt="NFT Image">
+                    }
                     <div class="card-body">
                         <h5 class="card-title">@nft.NomeNFT</h5>
                         <p class="card-text">Prezzo: @nft.Prezzo EPC</p>
@@ -21,7 +53,7 @@
                                 <div class="d-flex justify-content-center">
                                     <button type="submit" class="btn btn-custom">Metti in Vendita</button>
                                 </div>
-                               
+
                             </form>
                         }
                         else
@@ -34,3 +66,19 @@
         }
     </div>
 </div>
+
+<script>
+    function togglePlay(idNFT) {
+        var audio = document.getElementById('audio-nft-' + idNFT);
+        var button = document.querySelector('.audio-container .play-button i');
+        if (audio.paused) {
+            audio.play();
+            button.classList.add('bi-pause');
+            button.classList.remove('bi-play');
+        } else {
+            audio.pause();
+            button.classList.add('bi-play');
+            button.classList.remove('bi-pause');
+        }
+    }
+</script>

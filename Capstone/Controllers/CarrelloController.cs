@@ -101,6 +101,12 @@ namespace Capstone.Controllers
             {
                 try
                 {
+                    // Calcolo guadagno dell'Admin
+                    decimal guadagnoAdmin = CalcolaGuadagnoAdmin(carrello);
+
+                    // Aggiornamento del saldo del wallet dell'admin
+                    AggiornaSaldoAdmin(guadagnoAdmin);
+
                     var utente = db.Utenti.FirstOrDefault(u => u.Username == User.Identity.Name);
 
                     if (utente != null)
@@ -125,6 +131,32 @@ namespace Capstone.Controllers
                                 else
                                 {
                                     TempData["error"] = "NFTItem non trovato nel database.";
+                                    return RedirectToAction("Index", "Home");
+                                }
+
+                                // Calcolo dell'importo delle royalties
+                                decimal royalties = item.NFTItem.Prezzo * nftItem.Collezioni.Royalties.Value;
+
+                                // Aggiorna il saldo del creatore della collezione
+                                var walletCreatore = db.Wallets.FirstOrDefault(w => w.IdUtente == nftItem.Collezioni.IdUtente);
+                                if (walletCreatore != null)
+                                {
+                                    walletCreatore.Saldo += royalties;
+
+                                    // Aggiungi un record di operazione sul wallet del creatore per registrare le royalties
+                                    var operazioneRoyalties = new Operazioni
+                                    {
+                                        IdUtente = utente.IdUtente,
+                                        IdWallet = walletCreatore.IdWallet,
+                                        Tipo = "Royalties",
+                                        Importo = royalties,
+                                        DataOperazione = DateTime.Now
+                                    };
+                                    db.Operazioni.Add(operazioneRoyalties);
+                                }
+                                else
+                                {
+                                    TempData["error"] = "Il wallet del creatore della collezione non è stato trovato.";
                                     return RedirectToAction("Index", "Home");
                                 }
 
@@ -216,6 +248,37 @@ namespace Capstone.Controllers
 
             TempData["success"] = "Checkout completato con successo!";
             return RedirectToAction("Index", "Home");
+        }
+
+        // Metodo per calcolare il guadagno dell'admin basato sul carrello
+        private decimal CalcolaGuadagnoAdmin(Carrello carrello)
+        {
+            decimal guadagnoTotale = 0;
+
+            // Calcola il guadagno totale dell'admin sommando le percentuali di guadagno di ogni transazione
+            foreach (var item in carrello.Items)
+            {
+                decimal guadagnoTransazione = item.NFTItem.Prezzo * 0.05m;
+                guadagnoTotale += guadagnoTransazione;
+            }
+
+            return guadagnoTotale;
+        }
+
+        // Metodo per aggiornare il saldo del wallet dell'admin
+        private void AggiornaSaldoAdmin(decimal guadagnoAdmin)
+        {
+            var admin = db.Utenti.FirstOrDefault(u => u.Ruolo == "admin");
+
+            if (admin != null)
+            {
+                admin.Wallets.FirstOrDefault().Saldo += guadagnoAdmin;
+            }
+            else
+            {
+                // Gestisci il caso in cui l'utente admin non sia presente nel database
+                throw new Exception("Utente admin non trovato nel database.");
+            }
         }
     }
 }

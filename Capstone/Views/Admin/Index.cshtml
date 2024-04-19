@@ -57,7 +57,7 @@
                                 <div class="card-body">
                                     <div class="row align-baseline">
                                         <div class="col mt-0">
-                                            <h5 class="card-title text-secondary">Sales</h5>
+                                            <h5 class="card-title text-secondary">Profitti</h5>
                                         </div>
                                         <div class="col-auto">
                                             <div class="stat text-primary">
@@ -65,7 +65,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h2 class="mt-1 mb-3">2.382</h2>
+                                    <h2 id="adminWalletBalance" class="mt-1 mb-3"></h2>
                                     <div class="mb-0">
                                         <span class="text-danger">-3.65%</span>
                                         <span class="text-muted">Since last week</span>
@@ -76,7 +76,7 @@
                                 <div class="card-body">
                                     <div class="row align-baseline">
                                         <div class="col mt-0">
-                                            <h5 class="card-title text-secondary">Sales</h5>
+                                            <h5 class="card-title text-secondary">Transazioni</h5>
                                         </div>
                                         <div class="col-auto">
                                             <div class="stat text-primary">
@@ -84,9 +84,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h2 class="mt-1 mb-3">2.382</h2>
+                                    <h2 id="dailyTransactions" class="mt-1 mb-3"></h2>
                                     <div class="mb-0">
-                                        <span class="text-danger">-3.65%</span>
+                                        <span id="weeklyChangePercentage" class="text-danger"></span>
                                         <span class="text-muted">Since last week</span>
                                     </div>
                                 </div>
@@ -112,7 +112,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<<script>
+<
+<script>
     // Dati di esempio per il grafico della linea
     var lineChartData = {
         labels: ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"],
@@ -140,24 +141,24 @@
         options: lineChartOptions
     });
 </script>
- <script>
-     document.addEventListener('DOMContentLoaded', function () {
-         fetch('/Collezioni/GetTotalCollections')
-             .then(response => {
-                 if (!response.ok) {
-                     throw new Error('Errore nel caricamento dei dati');
-                 }
-                 return response.json();
-             })
-             .then(data => {
-                 document.getElementById('totalCollections').textContent = data;
-             })
-             .catch(error => {
-                 console.error(error);
-                 document.getElementById('totalCollections').textContent = 'Errore nel caricamento dei dati';
-             });
-     });
- </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/Collezioni/GetTotalCollections')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nel caricamento dei dati');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('totalCollections').textContent = data;
+            })
+            .catch(error => {
+                console.error(error);
+                document.getElementById('totalCollections').textContent = 'Errore nel caricamento dei dati';
+            });
+    });
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         fetch('/Utenti/GetTotalUsers')
@@ -173,6 +174,45 @@
             .catch(error => {
                 console.error(error);
                 document.getElementById('totalUsers').textContent = 'Errore nel caricamento dei dati';
+            });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/Wallets/GetAdminWalletBalance')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nel caricamento dei dati');
+                }
+                return response.json();
+            })
+            .then(data => {
+                var saldoEPC = data + " EPC";
+                document.getElementById('adminWalletBalance').textContent = saldoEPC;
+            })
+            .catch(error => {
+                console.error(error);
+                document.getElementById('adminWalletBalance').textContent = 'Errore nel caricamento dei dati';
+            });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Effettua una chiamata AJAX per recuperare il numero di transazioni del giorno
+        fetch('/Transazioni/GetDailyTransactionsCount')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nel caricamento dei dati');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Aggiorna il contenuto del placeholder con il numero di transazioni del giorno
+                document.getElementById('dailyTransactions').textContent = data;
+            })
+            .catch(error => {
+                console.error(error);
+                document.getElementById('dailyTransactions').textContent = 'Errore nel caricamento dei dati';
             });
     });
 </script>

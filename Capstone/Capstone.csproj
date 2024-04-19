@@ -137,6 +137,7 @@
     <Compile Include="Controllers\CollezioniController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NFTsController.cs" />
+    <Compile Include="Controllers\TransazioniController.cs" />
     <Compile Include="Controllers\UtentiController.cs" />
     <Compile Include="Controllers\WalletsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -181,7 +182,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Images\alien.jpg" />
     <Content Include="Content\Images\appstore.png" />
+    <Content Include="Content\Images\astronauta-music.jpeg" />
     <Content Include="Content\Images\bidding-user.png" />
     <Content Include="Content\Images\bitgo-logo-white.inline.svg" />
     <Content Include="Content\Images\bitgo.svg" />
@@ -200,6 +203,7 @@
     <Content Include="Content\Images\explore-product-7.jpg" />
     <Content Include="Content\Images\explore-product-8.jpg" />
     <Content Include="Content\Images\facebook.svg" />
+    <Content Include="Content\Images\fenicottero-music.jpeg" />
     <Content Include="Content\Images\hero-banner.jpeg" />
     <Content Include="Content\Images\item-bg-1.jpg" />
     <Content Include="Content\Images\item-bg-2.jpg" />
@@ -241,7 +245,6 @@
     <Content Include="Content\Images\Utenti\profilo.png" />
     <Content Include="Content\Images\wallet.png" />
     <Content Include="Content\Images\youtube.svg" />
-    <Content Include="Content\Videos\NFT\Otherside Trailer.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -384,11 +387,6 @@
     <Content Include="Views\NFTs\Details.cshtml" />
     <Content Include="Views\NFTs\Edit.cshtml" />
     <Content Include="Views\NFTs\Index.cshtml" />
-    <Content Include="Views\FileNFT\Create.cshtml" />
-    <Content Include="Views\FileNFT\Delete.cshtml" />
-    <Content Include="Views\FileNFT\Details.cshtml" />
-    <Content Include="Views\FileNFT\Edit.cshtml" />
-    <Content Include="Views\FileNFT\Index.cshtml" />
     <Content Include="Views\Utenti\MyProfile.cshtml" />
     <Content Include="Views\Wallets\Create.cshtml" />
     <Content Include="Views\Wallets\Delete.cshtml" />
@@ -401,11 +399,18 @@
     <Content Include="Views\Shared\_Notification.cshtml" />
     <Content Include="Views\Collezioni\MyCollections.cshtml" />
     <Content Include="Views\NFTs\MyNFTs.cshtml" />
+    <Content Include="Views\Transazioni\Create.cshtml" />
+    <Content Include="Views\Transazioni\Delete.cshtml" />
+    <Content Include="Views\Transazioni\Details.cshtml" />
+    <Content Include="Views\Transazioni\Edit.cshtml" />
+    <Content Include="Views\Transazioni\Index.cshtml" />
+    <Content Include="Views\Home\Blog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Audios\Collezioni\" />
     <Folder Include="Content\Videos\Collezioni\" />
+    <Folder Include="Content\Videos\NFT\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

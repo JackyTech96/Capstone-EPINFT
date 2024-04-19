@@ -64,6 +64,21 @@ namespace Capstone.Controllers
             }
         }
 
+        // Azione per mostrare le 10 collezioni più recenti.
+        public ActionResult GetRecentCollections()
+        {
+            var recentCollections = db.Collezioni.OrderByDescending(c => c.DataCreazione).Take(10).ToList();
+            System.Diagnostics.Debug.WriteLine("Collezioni recenti: " + recentCollections);
+            return PartialView("_CollectionsPartial", recentCollections);
+        }
+
+        // Azione per mostrare le 10 collezioni più vecchie.
+        public ActionResult GetOldestCollections()
+        {
+            var oldestCollections = db.Collezioni.OrderBy(c => c.DataCreazione).Take(10).ToList();
+            return PartialView("_CollectionsPartial", oldestCollections);
+        }
+
         //Azione per recuperare il numero di collezioni presenti nel database
         [HttpGet]
         public ActionResult GetTotalCollections()

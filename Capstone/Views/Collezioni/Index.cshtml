@@ -26,8 +26,8 @@
                             Filtri
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="filterMenu">
-                            <li><a class="dropdown-item" href="#">Newest Collections</a></li>
-                            <li><a class="dropdown-item" href="#">Oldest Collections</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="filterRecentCollections()">Più Recenti</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="filterOldestCollections()">Meno Recenti</a></li>
                             <!-- Add more filter options here -->
                         </ul>
                     </div>
@@ -84,7 +84,39 @@
         });
     }
 </script>
+<script>
+    // Funzione per filtrare le collezioni più recenti
+function filterRecentCollections() {
+    // Esegui una richiesta AJAX per ottenere le collezioni più recenti
+    $.ajax({
+        url: '@Url.Action("GetRecentCollections", "Collezioni")',
+        type: 'GET',
+        success: function (data) {
+            // Aggiorna la tabella con le nuove collezioni
+            $('#collectionsTableBody').html(data);
+        },
+        error: function (xhr, status, error) {
+            console.error('Errore durante il filtraggio delle collezioni: ', error);
+        }
+    });
+    }
 
+// Funzione per filtrare le collezioni più vecchie
+function filterOldestCollections() {
+    // Esegui una richiesta AJAX per ottenere le collezioni più vecchie
+    $.ajax({
+        url: '@Url.Action("GetOldestCollections", "Collezioni")',
+        type: 'GET',
+        success: function (data) {
+            // Aggiorna la tabella con le nuove collezioni
+            $('#collectionsTableBody').html(data);
+        },
+        error: function (xhr, status, error) {
+            console.error('Errore durante il filtraggio delle collezioni: ', error);
+        }
+    });
+}
+</script>
 
 
 
