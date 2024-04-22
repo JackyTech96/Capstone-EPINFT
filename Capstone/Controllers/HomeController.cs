@@ -23,6 +23,49 @@ namespace Capstone.Controllers
             return View();
         }
 
+        // Action per la ricerca delle collezioni parziali durante la digitazione
+        public JsonResult SearchPartial(string query)
+        {
+            if (!string.IsNullOrEmpty(query))
+            {
+                var collections = context.Collezioni
+                                        .Where(c => c.NomeCollezione.Contains(query))
+                                        .Select(c => new
+                                        {
+                                            Id = c.IdCollezione,
+                                            NomeCollezione = c.NomeCollezione,
+                                            ImmagineUrl = c.FotoCollezione
+                                        })
+                                        .ToList();
+
+                return Json(collections, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                // Se la query è vuota, restituisci una vista vuota
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // Action per la ricerca delle collezioni complete e reindirizzare ai dettagli della collezione
+        public ActionResult Search(string query)
+        {
+            if (!string.IsNullOrEmpty(query))
+            {
+                var collection = context.Collezioni
+                                       .FirstOrDefault(c => c.NomeCollezione.Contains(query));
+
+                if (collection != null)
+                {
+                    return RedirectToAction("Details", "Collezioni", new { id = collection.IdCollezione });
+                }
+            }
+
+            // Se non viene trovata nessuna corrispondenza o la query è vuota, restituisci una vista di errore o reindirizza a una pagina di ricerca vuota
+            return RedirectToAction("Index", "Home");
+        }
+
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

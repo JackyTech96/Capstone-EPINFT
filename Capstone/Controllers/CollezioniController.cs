@@ -95,7 +95,6 @@ namespace Capstone.Controllers
         }
 
 
-
         // GET: Collezioni/Details/5
         public ActionResult Details(int? id)
         {
