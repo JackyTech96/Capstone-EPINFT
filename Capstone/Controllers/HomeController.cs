@@ -107,6 +107,8 @@ namespace Capstone.Controllers
                 context.Utenti.Add(nuovoUtente);
                 context.SaveChanges();
 
+                TempData["success"] = "Registrazione effettuata con successo!";
+
                 return RedirectToAction("Login");
             }
 

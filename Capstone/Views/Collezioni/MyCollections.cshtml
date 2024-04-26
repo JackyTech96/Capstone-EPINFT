@@ -30,7 +30,7 @@
                                 <tr class="vertical-center" onclick="window.location.href='@Url.Action("Details", "Collezioni", new { id = collezione.IdCollezione })'" style="cursor:pointer">
                                     <td><img src="@Url.Content($"~/Content/Images/Collezioni/{collezione.FotoCollezione}")" alt="@collezione.NomeCollezione" width="70" height="70" class="rounded-4" style="object-fit:cover"></td>
                                     <td>@collezione.NomeCollezione</td>
-                                    <td>@collezione.Royalties</td>
+                                    <td>@(collezione.Royalties * 100)%</td>
                                 </tr>
                             }
                         </tbody>

@@ -4,71 +4,78 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<div class="container mt-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-white">Modifica Profilo</h2>
+            @using (Html.BeginForm("Edit", "Utenti", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
 
-@using (Html.BeginForm("Edit", "Utenti", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+                <div class="form-horizontal text-white">
+                    <hr class="w-75" />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.IdUtente)
 
-    <div class="form-horizontal text-white">
-        <h4>Utenti</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdUtente)
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group mb-3">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- Campo per la nuova password -->
+                    <div class="form-group mb-3">
+                        <div class="col-md-8">
+                            <label for="newPassword" class="control-label">Nuova Password</label>
+                            <input type="password" id="newPassword" name="newPassword" class="form-control" />
+                            <span toggle="#newPassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="col-md-8">
+                            <label for="confirmNewPassword" class="control-label">Conferma Nuova Password</label>
+                            <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control" />
+                            <span toggle="#confirmNewPassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FotoUtente, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @if (!string.IsNullOrEmpty(Model.FotoUtente))
+                            {
+                                <img src="@Url.Content("~/Content/Images/Utenti/" + Model.FotoUtente)" alt="Foto Utente" class="img-thumbnail me-3" width="150" />
+                            }
+                            <input type="file" name="uploadImage" />
+                        </div>
+                    </div>
+
+                    <!-- Bottone di submit -->
+                    <div class="form-group mt-3">
+                        <div class="col-md-offset-4 col-md-8 d-flex justify-content-center">
+                            <input type="submit" value="Crea" class="btn btn-custom me-3" />
+                            @Html.ActionLink("Torna al Profilo", "MyProfile", null, new { @class = "btn btn-secondary" })
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
 
-        <div class="form-group mb-3">
-            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <!-- Campo per la nuova password -->
-        <div class="form-group mb-3">
-            <div class="col-md-10">
-                <label for="newPassword" class="control-label">Nuova Password</label>
-                <input type="password" id="newPassword" name="newPassword" class="form-control" />
-                <span toggle="#newPassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-            </div>
-            
-        </div>
-        <div class="form-group mb-3">
-            <div class="col-md-10">
-                <label for="confirmNewPassword" class="control-label">Conferma Nuova Password</label>
-                <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-control" />
-                <span toggle="#confirmNewPassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-            </div>
-            
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FotoUtente, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @if (!string.IsNullOrEmpty(Model.FotoUtente))
-                {
-                    <img src="@Url.Content("~/Content/Images/Utenti/" + Model.FotoUtente)" alt="Foto Utente" class="img-thumbnail" width="150" />
-                }
-                <input type="file" name="uploadImage" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+
 </div>
+
+

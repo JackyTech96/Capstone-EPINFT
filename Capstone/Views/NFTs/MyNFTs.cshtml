@@ -1,5 +1,7 @@
 ﻿@model List<Capstone.Models.NFT>
 
+@Html.Partial("_Notification")
+
 <style>
     .audio-container .play-button {
         background: transparent;
@@ -15,12 +17,12 @@
 </style>
 
 <div class="container mt-5 py-5">
-    <h2 class="text-white mb-3">NFT Posseduti</h2>
+    <h2 class="text-white mb-3">I Miei NFT</h2>
     <div class="row">
         @foreach (var nft in Model)
         {
             <div class="col-md-4 mb-4">
-                <div class="card card-nft text-white bg-nft">
+                <div class="card card-nft text-white bg-card">
                     @if (nft.TipoFile == "Audio")
                     {
                         <div class="audio-container" style="position: relative;">
@@ -48,12 +50,11 @@
                             <form method="post" action="@Url.Action("InVendita", "NFTs", new { id = nft.IdNFT })">
                                 <div class="mb-3">
                                     <label for="nuovoPrezzo" class="form-label">Nuovo Prezzo</label>
-                                    <input type="number" class="form-control" id="nuovoPrezzo" name="nuovoPrezzo" required>
+                                    <input type="text" class="form-control" id="nuovoPrezzo" name="nuovoPrezzo" required>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <button type="submit" class="btn btn-custom">Metti in Vendita</button>
                                 </div>
-
                             </form>
                         }
                         else

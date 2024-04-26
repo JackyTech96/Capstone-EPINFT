@@ -4,72 +4,75 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<div class="container mt-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="display-4 text-white mb-4">Crea il tuo NFT</h2>
 
-@using (Html.BeginForm("Create", "NFTs", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+            @using (Html.BeginForm("Create", "NFTs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
 
-    <div class="form-horizontal text-white">
-        <h4>NFT</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-horizontal text-white">
+                    <hr class="w-75 mt-0" />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        @Html.HiddenFor(model => model.IdUtente) <!-- Campo nascosto per l'ID utente -->
-        @Html.HiddenFor(model => model.IdCollezione) <!-- Campo nascosto per l'ID collezione -->
+                    @Html.HiddenFor(model => model.IdUtente)
+                    @Html.HiddenFor(model => model.IdCollezione)
 
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.NomeNFT, "Nome NFT", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.NomeNFT, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NomeNFT, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NomeNFT, "Nome NFT", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NomeNFT, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NomeNFT, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.Descrizione, "Descrizione", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(model => model.Descrizione, new { @class = "form-control", rows = "3" })
+                            @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descrizione, "Descrizione", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.Prezzo, "Prezzo", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.Prezzo, new { htmlAttributes = new { @class = "form-control", type = "text" } })
+                            @Html.ValidationMessageFor(model => model.Prezzo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>                   
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Prezzo, "Prezzo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Prezzo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Prezzo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-group mb-3">
+                        @Html.Label("Tipo di File", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.DropDownList("tipoFile", new SelectList(new[]
+                            {
+                                 new SelectListItem { Text = "Scegli tipo di file", Value = "" },
+                                new SelectListItem { Text = "Immagine", Value = "Immagine" },
+                                new SelectListItem { Text = "Video", Value = "Video" },
+                                new SelectListItem { Text = "Audio", Value = "Audio" }
+                            }, "Value", "Text"), new { @class = "form-control" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.Label("File", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" name="file" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Tipo di File", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("tipoFile", new SelectList(new[]
-                {
-                    new SelectListItem { Text = "Immagine", Value = "Immagine" },
-                    new SelectListItem { Text = "Video", Value = "Video" },
-                    new SelectListItem { Text = "Audio", Value = "Audio" }
-                }, "Value", "Text"), new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+                    <div class="form-group mb-3">
+                        @Html.Label("File", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            <input type="file" name="file" />
+                        </div>
+                    </div>
+                    <!-- Bottone di submit -->
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8 d-flex justify-content-center">
+                            <input type="submit" value="Crea" class="btn btn-custom me-3" />
+                            @Html.ActionLink("Torna alla Lista", "Index", null, new { @class = "btn btn-secondary" })
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+

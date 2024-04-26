@@ -4,77 +4,81 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<div class="container mt-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="display-4 text-white mb-4">Crea la tua Collezione</h2>
 
-@using (Html.BeginForm("Create", "Collezioni", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+            @using (Html.BeginForm("Create", "Collezioni", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
 
-    <div class="form-horizontal text-white">
-        <h4>Collezioni</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-horizontal text-white">
+                    <hr class="w-75 mt-0" />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <!-- IdUtente (se nascosto) -->
-        @Html.HiddenFor(model => model.IdUtente)
+                    <!-- IdUtente (se nascosto) -->
+                    @Html.HiddenFor(model => model.IdUtente)
 
-        <!-- IdCategoria -->
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdCategoria, "Categoria", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdCategoria", ViewBag.IdCategoria as SelectList, "-- Seleziona Categoria --", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <!-- IdCategoria -->
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.IdCategoria, "Categoria", htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.DropDownList("IdCategoria", ViewBag.IdCategoria as SelectList, "-- Seleziona Categoria --", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <!-- NomeCollezione -->
-        <div class="form-group">
-            @Html.LabelFor(model => model.NomeCollezione, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NomeCollezione, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NomeCollezione, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <!-- NomeCollezione -->
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.NomeCollezione, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.NomeCollezione, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NomeCollezione, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <!-- Descrizione -->
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descrizione, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <!-- Descrizione -->
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.Descrizione, "Descrizione", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.TextAreaFor(model => model.Descrizione, new { @class = "form-control", rows = "3" })
+                            @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <!-- DataCreazione (se nascosto) -->
-        @Html.HiddenFor(model => model.DataCreazione)
+                    <!-- DataCreazione (se nascosto) -->
+                    @Html.HiddenFor(model => model.DataCreazione)
 
-        <!-- Royalties -->
-        <div class="form-group">
-            @Html.Label("RoyaltiesPercentage", "Royalties", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" name="RoyaltiesPercentage" class="form-control" />
-                @Html.ValidationMessage("RoyaltiesPercentage", "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <!-- Royalties -->
+                    <div class="form-group mb-3">
+                        @Html.Label("RoyaltiesPercentage", "Royalties", new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            <input type="text" name="RoyaltiesPercentage" class="form-control" />
+                            @Html.ValidationMessage("RoyaltiesPercentage", "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <!-- FotoCollezione -->
-        <div class="form-group">
-            @Html.LabelFor(model => model.FotoCollezione, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" name="uploadedFile" />
-                @Html.ValidationMessageFor(model => model.FotoCollezione, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <!-- FotoCollezione -->
+                    <div class="form-group mb-3">
+                        @Html.LabelFor(model => model.FotoCollezione, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
+                            <input type="file" name="uploadedFile" />
+                            @Html.ValidationMessageFor(model => model.FotoCollezione, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <!-- Bottone di submit -->
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+                    <hr class="w-75" />
+
+                    <!-- Bottone di submit -->
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8 d-flex justify-content-center">
+                            <input type="submit" value="Crea" class="btn btn-custom me-3" />
+                            @Html.ActionLink("Torna alla Lista", "Index", null, new { @class = "btn btn-secondary" })
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>

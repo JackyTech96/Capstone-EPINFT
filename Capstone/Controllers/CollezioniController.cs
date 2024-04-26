@@ -79,6 +79,20 @@ namespace Capstone.Controllers
             return PartialView("_CollectionsPartial", oldestCollections);
         }
 
+        // Azione per mostrare le collezioni in ordine alfabetico (A-Z).
+        public ActionResult GetCollectionsAlphabeticallyAscending()
+        {
+            var alphabeticalCollections = db.Collezioni.OrderBy(c => c.NomeCollezione).Take(10).ToList();
+            return PartialView("_CollectionsPartial", alphabeticalCollections);
+        }
+
+        // Azione per mostrare le collezioni in ordine alfabetico (Z-A).
+        public ActionResult GetCollectionsAlphabeticallyDescending()
+        {
+            var reverseAlphabeticalCollections = db.Collezioni.OrderByDescending(c => c.NomeCollezione).Take(10).ToList();
+            return PartialView("_CollectionsPartial", reverseAlphabeticalCollections);
+        }
+
         //Azione per recuperare il numero di collezioni presenti nel database
         [HttpGet]
         public ActionResult GetTotalCollections()
@@ -113,12 +127,17 @@ namespace Capstone.Controllers
                 return HttpNotFound();
             }
 
-            //Verifica se l'utente corrente e' l'autore della collezione
+            // Verifica se l'utente corrente e' l'autore della collezione
             var currentUser = db.Utenti.FirstOrDefault(u => u.Username == User.Identity.Name);
             var isCreator = collezioneWithNFTs.IdUtente == currentUser.IdUtente;
 
-            //Passa l'informazione se l'utente corrente e' l'autore della collezione
+            // Verifica se l'utente corrente possiede l'NFT associato alla collezione
+            var hasNFT = collezioneWithNFTs.NFT.Any(n => n.IdProprietario == currentUser.IdUtente);
+
+            // Passa le informazioni alla ViewBag
             ViewBag.IsCreator = isCreator;
+            ViewBag.HasNFT = hasNFT;
+            ViewBag.CurrentUser = currentUser;
 
             return View(collezioneWithNFTs);
         }
@@ -271,16 +290,30 @@ namespace Capstone.Controllers
             return View(collezioni);
         }
 
-        // POST: Collezioni/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Collezioni collezioni = db.Collezioni.Find(id);
-            db.Collezioni.Remove(collezioni);
+            // Trova la collezione da eliminare
+            Collezioni collezione = db.Collezioni.Find(id);
+
+            // Trova tutti gli NFT che fanno riferimento a questa collezione
+            List<NFT> nftDaEliminare = db.NFT.Where(n => n.IdCollezione == id).ToList();
+
+            // Elimina tutti gli NFT che fanno riferimento a questa collezione
+            db.NFT.RemoveRange(nftDaEliminare);
+
+            // Elimina la collezione stessa
+            db.Collezioni.Remove(collezione);
+
+            // Salva i cambiamenti nel database
             db.SaveChanges();
+
+            TempData["success"] = "La collezione è stata eliminata con successo!";
+
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {

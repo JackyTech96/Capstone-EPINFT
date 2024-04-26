@@ -176,7 +176,7 @@ namespace Capstone.Controllers
                     else
                     {
                         // Gestire il caso in cui il saldo non sia sufficiente per il prelievo
-                        TempData["ErrorMessage"] = "Saldo non sufficiente per il prelievo.";
+                        TempData["error"] = "Saldo non sufficiente per il prelievo.";
                         return RedirectToAction("MyWallet");
                     }
 
@@ -193,7 +193,7 @@ namespace Capstone.Controllers
                     db.SaveChanges();
 
                     // Imposta il messaggio di successo
-                    TempData["SuccessMessage"] = "Operazione completata con successo.";
+                    TempData["success"] = "Operazione completata con successo.";
 
                     // Reindirizza all'azione MyWallet
                     return RedirectToAction("MyWallet");

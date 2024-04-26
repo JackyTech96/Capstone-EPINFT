@@ -102,6 +102,8 @@ namespace Capstone.Controllers
             {
                 return HttpNotFound();
             }
+            var cookie = new HttpCookie("Avatar", utenti.FotoUtente);
+            Response.Cookies.Add(cookie);
             return View(utenti);
         }
 
@@ -145,8 +147,15 @@ namespace Capstone.Controllers
 
                 db.Entry(utenti).State = EntityState.Modified;
                 db.SaveChanges();
+
+                // Aggiorna il cookie Avatar con il nuovo percorso dell'immagine dell'utente
+                Response.Cookies["Avatar"].Value = utenti.FotoUtente;
+
+                TempData["success"] = "Profilo modificato con successo!";
+
                 return RedirectToAction("MyProfile");
             }
+            
             return View(utenti);
         }
 
@@ -216,11 +225,14 @@ namespace Capstone.Controllers
                 // Output di debug per verificare che il wallet sia stato creato correttamente
                 System.Diagnostics.Debug.WriteLine("Nuovo wallet creato per l'utente con ID: " + utente.IdUtente + ", indirizzo del wallet: " + walletAddress);
 
+                TempData["success"] = "Wallet creato con successo!";
+
                 // Reindirizza all'azione successiva o restituisci una vista opportuna
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("MyProfile");
             }
             else
             {
+                TempData["error"] = "Utente non trovato!";
                 // Se l'utente non è valido, gestisci l'errore o reindirizza
                 return RedirectToAction("Login", "Account");
             }

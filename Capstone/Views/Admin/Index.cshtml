@@ -6,7 +6,7 @@
 <main class="content mt-5 py-5">
     <div class="container-fluid p-0">
         <h2 class="mb-3 text-white">
-            Admin Dashboard
+            Dashboard
         </h2>
         <div class="row">
             <div class="col-xl-6 col-xxl-5 d-flex">
@@ -33,23 +33,24 @@
                             </div>
 
                             <div class="card">
-                                <div class="card-body">
-                                    <div class="row align-baseline">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title text-secondary">Utenti</h5>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="bi bi-people fs-4"></i>
+                                <a href="/Utenti/Index" class="card-link text-decoration-none text-dark">
+                                    <div class="card-body">
+                                        <div class="row align-baseline">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title text-secondary">Utenti</h5>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="stat text-primary">
+                                                    <i class="bi bi-people fs-4"></i>
+                                                </div>
                                             </div>
                                         </div>
+                                        <h2 id="totalUsers" class="mt-1 mb-3"></h2>
+                                        <div class="mb-0">
+                                            <span class="text-muted">Numero totale di utenti</span>
+                                        </div>
                                     </div>
-                                    <h2 id="totalUsers" class="mt-1 mb-3"></h2>
-                                    <div class="mb-0"> 
-                                        <span class="text-danger">-3.65%</span>
-                                        <span class="text-muted">Since last week</span>
-                                    </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -67,29 +68,29 @@
                                     </div>
                                     <h2 id="adminWalletBalance" class="mt-1 mb-3"></h2>
                                     <div class="mb-0">
-                                        <span class="text-danger">-3.65%</span>
-                                        <span class="text-muted">Since last week</span>
+                                        <span class="text-muted">Numero totale dei profitti</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="card">
-                                <div class="card-body">
-                                    <div class="row align-baseline">
-                                        <div class="col mt-0">
-                                            <h5 class="card-title text-secondary">Transazioni</h5>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="stat text-primary">
-                                                <i class="bi bi-shop fs-4"></i>
+                                <a href="/Transazioni/Index" class="card-link text-decoration-none text-dark">
+                                    <div class="card-body">
+                                        <div class="row align-baseline">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title text-secondary">Transazioni</h5>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="stat text-primary">
+                                                    <i class="bi bi-shop fs-4"></i>
+                                                </div>
                                             </div>
                                         </div>
+                                        <h2 id="dailyTransactions" class="mt-1 mb-3"></h2>
+                                        <div class="mb-0">
+                                            <span class="text-muted">Transazioni giornaliere</span>
+                                        </div>
                                     </div>
-                                    <h2 id="dailyTransactions" class="mt-1 mb-3"></h2>
-                                    <div class="mb-0">
-                                        <span id="weeklyChangePercentage" class="text-danger"></span>
-                                        <span class="text-muted">Since last week</span>
-                                    </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -98,7 +99,7 @@
             <div class="col-xl-6 col-xxl-7">
                 <div class="card flex-fill w-100">
                     <div class="card-header">
-                        <div class="card-title mb-0">Recent Movement</div>
+                        <div class="card-title mb-0">Volumi scambiati</div>
                     </div>
                     <div class="card-body">
                         <canvas id="lineChart" width="400" height="138"></canvas>

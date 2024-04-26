@@ -50,8 +50,10 @@ namespace Capstone.Controllers
             else
             {
                 // Gestisci il caso in cui l'NFT non esiste nel database (ad esempio, visualizza un messaggio di errore)
-                TempData["Errore"] = "NFT non trovato nel database.";
+                TempData["error"] = "NFT non trovato nel database.";
             }
+
+            TempData["success"] = "L'NFT è stato aggiunto al carrello.";
 
             return RedirectToAction("Index");
         }
@@ -84,6 +86,8 @@ namespace Capstone.Controllers
                 // Gestisci il caso in cui il carrello non esiste (ad esempio, visualizza un messaggio di errore)
                 TempData["error"] = "Il Carrello è vuoto.";
             }
+
+            TempData["success"] = "L'NFT è stato rimosso dal carrello.";
             return RedirectToAction("Index");
         }
 

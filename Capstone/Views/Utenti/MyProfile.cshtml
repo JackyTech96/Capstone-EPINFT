@@ -4,6 +4,7 @@
     ViewBag.Title = "Il mio Profilo";
 }
 
+@Html.Partial("_Notification")
 
 <div class="container mt-5 py-5">
     <div class="row justify-content-center">
@@ -28,9 +29,9 @@
                         {
                             @Html.ActionLink("Genera Wallet", "GenerateWallet", null, new { @class = "btn btn-primary", id = "generateWalletBtn" })
                         }
-                    <a href="@Url.Action("Edit", new { id = Model.IdUtente })" class="btn">
-                        <i class="bi bi-pencil-square fs-2 text-white"></i>
-                    </a>
+                        <a href="@Url.Action("Edit", new { id = Model.IdUtente })" class="btn">
+                            <i class="bi bi-pencil-square fs-2 text-white"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="col-sm-8 bg-white rounded-end">
@@ -47,13 +48,23 @@
                         </div>
                     </div>
                     <hr class="text-primary" />
-                    <h3 class="mt-5 pt-4 text-center ">...</h3>
+                    <h3 class="mt-5 text-center">Link Utili</h3>
                     <hr class="text-primary mt-0 w-25 text-center m-auto" />
-                    <ul class="list-unstyled d-flex justify-content-center mt-4">
-                        <li><a href="@Url.Action("MyWallet", "Wallets")"><img src="~/Content/Images/wallet.png" height="50" class="px-3" /></a></li>
-                        <li><a href="@Url.Action("Index", "Collezioni")"><img src="~/Content/Images/collections.png" height="50" class="px-3" /></a></li>
-                        <li><a href="@Url.Action("MyNFTS", "NFTs")"><img src="~/Content/Images/nft.png" height="50" class="px-3" /></a></li>
+                    <ul class="list-unstyled d-flex justify-content-between mt-4">
+                        <li class="text-center">
+                            <span class="d-block fw-bold mb-1">Il mio Wallet</span>
+                            <a href="@Url.Action("MyWallet", "Wallets")" class="d-block"><img src="~/Content/Images/wallet.png" height="50" class="mx-auto" /></a>
+                        </li>
+                        <li class="text-center">
+                            <span class="d-block fw-bold mb-1">Le mie Collezioni</span>
+                            <a href="@Url.Action("Index", "Collezioni")" class="d-block"><img src="~/Content/Images/collections.png" height="50" class="mx-auto" /></a>
+                        </li>
+                        <li class="text-center">
+                            <span class="d-block fw-bold mb-1">I miei NFT</span>
+                            <a href="@Url.Action("MyNFTS", "NFTs")" class="d-block"><img src="~/Content/Images/nft.png" height="50" class="mx-auto" /></a>
+                        </li>
                     </ul>
+                    <hr class="text-primary" />
                 </div>
             </div>
         </div>

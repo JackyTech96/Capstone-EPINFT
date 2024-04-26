@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-
+@Html.Partial("_Notification")
 
 <main>
     <section>
-        <div class="container mb-5">
-            <h2 class="display-4 text-center my-5 text-white pt-5">Collezioni</h2>
+        <div class="container my-5 pt-5">
+            <h2 class="display-4 text-center text-white mb-5">Collezioni</h2>
             <div class="row mb-2">
                 <div class="col-md-9">
                     <div class="d-flex flex-wrap justify-content-center justify-content-md-start">
@@ -28,7 +28,8 @@
                         <ul class="dropdown-menu" aria-labelledby="filterMenu">
                             <li><a class="dropdown-item" href="#" onclick="filterRecentCollections()">Più Recenti</a></li>
                             <li><a class="dropdown-item" href="#" onclick="filterOldestCollections()">Meno Recenti</a></li>
-                            <!-- Add more filter options here -->
+                            <li><a class="dropdown-item" href="#" onclick="filterAlphabeticalAscending()">Ordine Alfabetico (A-Z)</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="filterAlphabeticalDescending()">Ordine Alfabetico (Z-A)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -109,6 +110,35 @@ function filterOldestCollections() {
         type: 'GET',
         success: function (data) {
             // Aggiorna la tabella con le nuove collezioni
+            $('#collectionsTableBody').html(data);
+        },
+        error: function (xhr, status, error) {
+            console.error('Errore durante il filtraggio delle collezioni: ', error);
+        }
+    });
+}
+</script>
+<script>
+    // Funzione per filtrare le collezioni in ordine alfabetico crescente per nome
+function filterAlphabeticalAscending() {
+    $.ajax({
+        url: '@Url.Action("GetCollectionsAlphabeticallyAscending", "Collezioni")',
+        type: 'GET',
+        success: function (data) {
+            $('#collectionsTableBody').html(data);
+        },
+        error: function (xhr, status, error) {
+            console.error('Errore durante il filtraggio delle collezioni: ', error);
+        }
+    });
+}
+
+// Funzione per filtrare le collezioni in ordine alfabetico decrescente per nome
+function filterAlphabeticalDescending() {
+    $.ajax({
+        url: '@Url.Action("GetCollectionsAlphabeticallyDescending", "Collezioni")',
+        type: 'GET',
+        success: function (data) {
             $('#collectionsTableBody').html(data);
         },
         error: function (xhr, status, error) {

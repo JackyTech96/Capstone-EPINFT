@@ -1,51 +1,91 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Blog";
 }
 
+<style>
+    .carousel-caption {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        
+        padding: 20px; /* Spazio interno ai titoli */
+        color: white; /* Colore del testo */
+    }
+
+</style>
+
 <div class="container mt-5 py-5">
-    <div class="row py-2 justify-content-between align-items-stretch border border-light rounded bg-nft">
-        <div class="col-md-8">
+    <h2 class="display-4 text-center text-white mb-5">Blog e Notizie</h2>
+    <div class="row justify-content-center align-items-stretch border border-dark rounded bg-light">
+        <div class="col-md-8 p-0">
             <div id="carouselExample" class="carousel slide shadow-lg rounded">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
+                        <div class="carousel-caption">
+                            <h2 class="display-5" style="background-color: rgba(0, 0, 0, 0.5); text-align:start">L'halving di Bitcoin mostra ai nuovi utenti che 'il codice è legge' nelle crypto</h2>
+                        </div>
+                        <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/8633dfda-5dc7-45e0-a702-eea4478f8e27.jpg" class="d-block w-100 rounded" alt="...">                       
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-caption">
+                            <h2 class="display-5" style="background-color: rgba(0, 0, 0, 0.5); text-align:start">PayPal propone ricompense aggiuntive per i miner che utilizzano fonti energetiche sostenibili</h2>
+                        </div>
+                        <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/3a7ec8e4-92d1-413d-b8cf-ade74d0fdd5c.jpg" class="d-block w-100 rounded" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-caption">
+                            <h2 class="display-5" style="background-color: rgba(0, 0, 0, 0.5); text-align:start">SEC delle Filippine ordina a Google e Apple di rimuovere Binance dagli app store</h2>
+                        </div>
+                        <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/06608242-0b32-4ac4-84cc-a0b10d5e00e8.jpg" class="d-block w-100 rounded" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-caption">
+                            <h2 class="display-5" style="background-color: rgba(0, 0, 0, 0.5); text-align:start">Le riserve Bitcoin sugli exchange si esauriranno in 9 mesi — Bybit</h2>
+                        </div>
                         <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/d0ddf703-10fd-43aa-a30b-86a5cea19748.jpg" class="d-block w-100 rounded" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/d0ddf703-10fd-43aa-a30b-86a5cea19748.jpg" class="d-block w-100 rounded" alt="...">
+                        <div class="carousel-caption">
+                            <h2 class="display-5" style="background-color: rgba(0, 0, 0, 0.5); text-align:start">Costo delle commissioni su Bitcoin crolla, dopo aver raggiunto la cifra record di 128$</h2>
+                        </div>
+                        <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/8cabcd6f-cc4c-4b4e-b1bc-2048c67fa3d0.jpg" class="d-block w-100 rounded" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/d0ddf703-10fd-43aa-a30b-86a5cea19748.jpg" class="d-block w-100 rounded" alt="...">
+                        <div class="carousel-caption">
+                            <h2 class="display-5" style="background-color: rgba(0, 0, 0, 0.5); text-align:start">Il futuro della finanza è tokenizzato: gli asset del mondo reale arrivano su blockchain</h2>
+                        </div>
+                        <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/storage/uploads/view/de7616cf01a7a5bdf1ad19cf76de07fd.jpg" class="d-block w-100 rounded" alt="...">
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <button class="carousel-control-prev justify-content-start" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <button class="carousel-control-next justify-content-end" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
         </div>
         <div class="col-md-4">
-            <h5 class="text-center text-white">Notizie più importanti</h5>
+            <h4 class="text-center mt-4">Notizie più importanti</h4>
             <ul class="list-unstyled">
-                <li class="py-3"><a class="text-decoration-none text-muted" href="#">Le riserve Bitcoin sugli exchange si esauriranno in 9 mesi — Bybit</a></li>
-                <li class="py-3"><a class="text-decoration-none text-muted" href="#">Le riserve Bitcoin sugli exchange si esauriranno in 9 mesi — Bybit</a></li>
-                <li class="py-3"><a class="text-decoration-none text-muted" href="#">Le riserve Bitcoin sugli exchange si esauriranno in 9 mesi — Bybit</a></li>
-                <li class="py-3"><a class="text-decoration-none text-muted" href="#">Le riserve Bitcoin sugli exchange si esauriranno in 9 mesi — Bybit</a></li>
-                <li class="py-3"><a class="text-decoration-none text-muted" href="#">Le riserve Bitcoin sugli exchange si esauriranno in 9 mesi — Bybit</a></li>
-                <li class="py-3"><a class="text-decoration-none text-muted" href="#">Le riserve Bitcoin sugli exchange si esauriranno in 9 mesi — Bybit</a></li>
+                <li class="py-3"><a class="text-decoration-none text-dark" href="#"></a>L'halving di Bitcoin mostra ai nuovi utenti che 'il codice è legge' nelle crypto</li>
+                <li class="py-3"><a class="text-decoration-none text-dark" href="#">PayPal propone ricompense aggiuntive per i miner che utilizzano fonti energetiche sostenibili</a></li>
+                <li class="py-3"><a class="text-decoration-none text-dark" href="#">SEC delle Filippine ordina a Google e Apple di rimuovere Binance dagli app store</a></li>
+                <li class="py-3"><a class="text-decoration-none text-dark" href="#"></a>Le riserve Bitcoin sugli exchange si esauriranno in 9 mesi — Bybit</li>
+                <li class="py-3"><a class="text-decoration-none text-dark" href="#">Costo delle commissioni su Bitcoin crolla, dopo aver raggiunto la cifra record di 128$</a></li>
+                <li class="py-3"><a class="text-decoration-none text-dark" href="#">Il futuro della finanza è tokenizzato: gli asset del mondo reale arrivano su blockchain</a></li>
             </ul>
         </div>
     </div>
     <div class="row mt-4">
-        <div class="col-md-4 d-flex align-items-stretch mb-3">
-            <div class="card bg-card h-100 shadow-sm">
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-3">
+            <div class="card bg-light h-100 shadow-sm">
                 <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/160b88e9-6d72-4736-a743-4ddf529f0588.jpg" class="card-img-top img-fluid" alt="...">
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-white">ETF di BlackRock prossimo al sorpasso di Grayscale, nonostante la seconda più bassa raccolta giornaliera</h5>
+                    <h5 class="card-title fw-bold">ETF di BlackRock prossimo al sorpasso di Grayscale, nonostante la seconda più bassa raccolta giornaliera</h5>
                     <div class="d-flex justify-content-between mt-auto">
                         <p class="mt-4 mb-0 text-muted">di Zoltan Vardai</p>
                         <p class="mt-4 mb-0 text-muted">18 ore fa</p>
@@ -53,11 +93,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 d-flex align-items-stretch mb-3">
-            <div class="card bg-nft h-100 shadow-sm">
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-3">
+            <div class="card bg-light h-100 shadow-sm">
                 <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/8e786f67-aebc-43ab-a79a-ebfffc8ce1a7.jpg" class="card-img-top img-fluid" alt="...">
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-white">Il floor price degli NFT Bored Ape tocca il punto più basso in oltre due anni e mezzo</h5>
+                    <h5 class="card-title fw-bold">Il floor price degli NFT Bored Ape tocca il punto più basso in oltre due anni e mezzo</h5>
                     <div class="d-flex justify-content-between mt-auto">
                         <p class="mt-4 mb-0 text-muted">di Braiden Lindrea</p>
                         <p class="mt-4 mb-0 text-muted">19 Aprile 2024</p>
@@ -65,8 +105,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 d-flex align-items-stretch mb-3">
-            <div class="card h-100 shadow-sm">
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-3">
+            <div class="card bg-light h-100 shadow-sm">
                 <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-03/4a6e1ba6-107d-4be5-88e6-bba6f0eb3ce3.jpg" class="card-img-top img-fluid" alt="...">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-bold">Storia delle Crypto, 2013-2015: L'espansione di Bitcoin e la nascita di Ethereum</h5>
@@ -77,14 +117,38 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 d-flex align-items-stretch mb-3">
-            <div class="card h-100 shadow-sm">
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-3">
+            <div class="card bg-light h-100 shadow-sm">
                 <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-03/736a8238-b101-4a6a-9630-a84f3a6aff3d.jpg" class="card-img-top img-fluid" alt="...">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title fw-bold">A Marzo i CryptoPunks registrano un'altra vendita NFT da $16 milioni</h5>
                     <div class="d-flex justify-content-between mt-auto">
                         <p class="mt-4 mb-0 text-muted">di Ezra Reguerra</p>
                         <p class="mt-4 mb-0 text-muted">22 Marzo 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-3">
+            <div class="card bg-light h-100 shadow-sm">
+                <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/320f8017-194f-43f8-925c-47d740c74eba.jpg" class="card-img-top img-fluid" alt="...">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold">Bitcoin 'non più a buon mercato': Fidelity rivede le prospettive a medio termine di BTC</h5>
+                    <div class="d-flex justify-content-between mt-auto">
+                        <p class="mt-4 mb-0 text-muted">di Martin Young</p>
+                        <p class="mt-4 mb-0 text-muted">20 Marzo 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-3">
+            <div class="card bg-light h-100 shadow-sm">
+                <img src="https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2024-04/0f199ec9-90d8-4999-9fc5-834e93bbe2f3.jpg" class="card-img-top img-fluid" alt="...">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold">L'halving del 2024 darà inizio al ciclo 'più rialzista' di sempre, prevede il CEO di Earth Wallet</h5>
+                    <div class="d-flex justify-content-between mt-auto">
+                        <p class="mt-4 mb-0 text-muted">di Zoltan Vardai</p>
+                        <p class="mt-4 mb-0 text-muted">12 Marzo 2024</p>
                     </div>
                 </div>
             </div>

@@ -172,8 +172,11 @@ nav.custom-background {
     color: var(--white-55);
 }
 
+footer li {
+    color: var(--white-55);
+}
 footer span {
-    color: var(--white-55)
+    color: white;
 }
 
 /*-----------------------------------*\
@@ -198,6 +201,18 @@ footer span {
     transition: transform .4s;
 }
 
-    .card-nft:hover {
+.card-nft:hover {
         transform: scale(1.1);
-    }
+}
+
+.audio-container .play-button {
+    background: transparent;
+    border: none;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+}
+
+.audio-container .play-button i {
+        font-size: 24px;
+}

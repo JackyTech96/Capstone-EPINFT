@@ -3,47 +3,48 @@
 @{
     ViewBag.Title = "Dettagli Collezione";
     var isCreator = ViewBag.IsCreator ?? false; // Imposta il valore predefinito a false se non è presente nella ViewBag
+    bool hasNFT = ViewBag.HasNFT ?? false;
+    var currentUser = ViewBag.CurrentUser;
 }
 
-<style>
-    .audio-container .play-button {
-        background: transparent;
-        border: none;
-        width: 44px;
-        height: 44px;
-        cursor: pointer;
-    }
-
-        .audio-container .play-button i {
-            font-size: 24px;
-        }
-</style>
+@Html.Partial("_Notification")
 
 <div class="container mt-5 py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
+            <div class="card bg-card">
+                <div class="card-body text-white">
                     <div class="row">
                         <div class="col-md-4 text-center">
                             <!-- Immagine della collezione -->
-                            <img src="@Url.Content("~/Content/Images/Collezioni/" + Model.FotoCollezione)" class="img-fluid rounded" alt="Foto Collezione">
+                            <img src="@Url.Content("~/Content/Images/Collezioni/" + Model.FotoCollezione)" class="img-fluid rounded mb-3 mb-md-0" alt="Foto Collezione">
                         </div>
                         <div class="col-md-8">
                             <h2 class="card-title">@Model.NomeCollezione</h2>
+                            <hr class="mt-0" />
                             <p class="card-text">@Model.Descrizione</p>
                             <hr>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p><strong>Categoria:</strong> @Model.Categorie.NomeCategoria</p>
-                                    <p><strong>Data di Creazione:</strong> @Model.DataCreazione.ToShortDateString()</p>
-                                    <p><strong>Royalties:</strong> @(Model.Royalties * 100)%</p>
+                                    <div class="mb-3">
+                                        <p><strong>Categoria:</strong> @Model.Categorie.NomeCategoria</p>
+                                        <p><strong>Data di Creazione:</strong> @Model.DataCreazione.ToShortDateString()</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <p><strong>Royalties:</strong> @(Model.Royalties * 100)%</p>
+                                        <p class="mb-0"><strong>Supply:</strong> @Model.NFT.Count()/1000</p>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Aggiungi pulsanti o azioni per la collezione -->
                             <div class="text-center mt-3">
-                                @Html.ActionLink("Modifica Collezione", "Edit", "Collezioni", new { id = Model.IdCollezione }, new { @class = "btn btn-primary" })
-                                @Html.ActionLink("Elimina Collezione", "Delete", "Collezioni", new { id = Model.IdCollezione }, new { @class = "btn btn-danger", onclick = "return confirm('Sei sicuro di voler eliminare questa collezione?')" })
+                                @if (User.IsInRole("admin"))
+                                {
+                                    @Html.ActionLink("Modifica Collezione", "Edit", "Collezioni", new { id = Model.IdCollezione }, new { @class = "btn btn-secondary bg-transparent me-3" })
+                                    @Html.ActionLink("Elimina Collezione", "Delete", "Collezioni", new { id = Model.IdCollezione }, new { @class = "btn btn-danger bg-transparent", onclick = "return confirm('Sei sicuro di voler eliminare questa collezione?')" })
+                                }
                             </div>
                         </div>
                     </div>
@@ -81,9 +82,9 @@
                                             Your browser does not support the audio tag.
                                         </audio>
                                         <button onclick="togglePlay(@nft.IdNFT)" class="play-button" style="position: absolute; top: 85%; left: 89%; transform: translate(-50%, -50%);">
-                                           <div class="rounded rounded-circle p-1 d-flex justify-content-center align-items-center" style="background-color: rgba(159, 159, 159, 0.4)">
-                                               <i id="play-icon" class="bi bi-play text-white"></i>
-                                            </div>                                           
+                                            <div class="rounded rounded-circle p-1 d-flex justify-content-center align-items-center" style="background-color: rgba(159, 159, 159, 0.4)">
+                                                <i id="play-icon" class="bi bi-play text-white"></i>
+                                            </div>
                                         </button>
                                     </div>
                                     break;
@@ -91,20 +92,24 @@
                                     <p>Contenuto non supportato</p>
                                     break;
                             }
-                            <div class="card-body">
-                                <h5 class="card-title">@nft.NomeNFT</h5>
-                                <p class="card-text">Prezzo: @nft.Prezzo EPC</p>
-                                @if (nft.IsDisponibile)
-                                {
-                                    <div class="d-flex justify-content-center">
-                                        <a href="@Url.Action("AggiungiAlCarrello", "Carrello", new { idNFT = nft.IdNFT, quantita = 1 })" class="btn btn-custom">Acquista</a>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <p class="text-muted text-center">Non Disponibile</p>
-                                }
-                            </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@nft.NomeNFT</h5>
+                            <p class="card-text">Prezzo: @nft.Prezzo EPC</p>
+                            @if (nft.IsDisponibile && nft.IdProprietario != currentUser.IdUtente)
+                            {
+                                <div class="d-flex justify-content-center">
+                                    <a href="@Url.Action("AggiungiAlCarrello", "Carrello", new { idNFT = nft.IdNFT, quantita = 1 })" class="btn btn-custom">Acquista</a>
+                                </div>
+                            }
+                            else if (nft.IdProprietario == currentUser.IdUtente)
+                            {
+                                <p class="text-muted text-center">Possiedi già questo NFT</p>
+                            }
+                            else
+                            {
+                                <p class="text-muted text-center">Non Disponibile</p>
+                            }
+                        </div>
                         </div>
                     </div>
                 }
@@ -119,18 +124,4 @@
     </div>
 </div>
 
-<script>
-    function togglePlay(idNFT) {
-        var audio = document.getElementById('audio-nft-' + idNFT);
-        var button = document.querySelector('.audio-container .play-button i');
-        if (audio.paused) {
-            audio.play();
-            button.classList.add('bi-pause');
-            button.classList.remove('bi-play');
-        } else {
-            audio.pause();
-            button.classList.add('bi-play');
-            button.classList.remove('bi-pause');
-        }
-    }
-</script>
+<script src="~/Scripts/audio-play.js"></script>

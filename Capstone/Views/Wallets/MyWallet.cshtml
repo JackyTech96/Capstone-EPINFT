@@ -4,21 +4,11 @@
     ViewBag.Title = "Il mio Wallet";
 }
 
+@Html.Partial("_Notification")
+
 <div class="container mt-5 py-5 text-white">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-md-12">
-            @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
-            {
-                <div class="alert alert-danger" role="alert">
-                    @TempData["ErrorMessage"]
-                </div>
-            }
-            @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
-            {
-                <div class="alert alert-success" role="alert">
-                    @TempData["SuccessMessage"]
-                </div>
-            }
             <h2>Il mio Wallet</h2>
             <hr />
             @{
@@ -29,7 +19,7 @@
                 {
                     var saldo = wallet.Saldo;
                     // Utilizza il saldo recuperato
-                    <h4>Saldo attuale: @saldo</h4>
+                    <h4>Saldo attuale: @saldo EPC</h4>
                 }
                 else
                 {
@@ -42,7 +32,7 @@
             <ul>
                 @foreach (var operazione in Model.Wallets.FirstOrDefault()?.Operazioni.OrderByDescending(o => o.DataOperazione).Take(10))
                 {
-                    <li>@operazione.Tipo: @operazione.Importo - @operazione.DataOperazione</li>
+                    <li>@operazione.Tipo: @operazione.Importo EPC - @operazione.DataOperazione</li>
                 }
             </ul>
             <hr />
@@ -60,7 +50,7 @@
                         <option value="Prelievo">Prelievo</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Esegui</button>
+                <button type="submit" class="btn btn-custom">Esegui</button>
             }
         </div>
     </div>

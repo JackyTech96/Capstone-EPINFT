@@ -17,7 +17,7 @@ namespace Capstone.Controllers
 
         // GET: NFTs
         public ActionResult Index()
-        {        
+        {
             return View();
         }
 
@@ -26,8 +26,8 @@ namespace Capstone.Controllers
         {
             // Ottieni l'ID dell'utente loggato
             var utente = db.Utenti.FirstOrDefault(u => u.Username == User.Identity.Name);
-            
-            if(utente != null)
+
+            if (utente != null)
             {
                 // Ottieni tutti i NFT dell'utente
                 var nftsUtente = db.NFT.Where(n => n.IdProprietario == utente.IdUtente).ToList();
@@ -54,7 +54,6 @@ namespace Capstone.Controllers
             }
         }
 
-        //POST: NFTs/InVendita
         [HttpPost]
         public ActionResult InVendita(int id, decimal nuovoPrezzo)
         {
@@ -65,13 +64,14 @@ namespace Capstone.Controllers
                 nft.Prezzo = nuovoPrezzo;
                 nft.IsDisponibile = true;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+
+
             }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            TempData["success"] = "NFT in vendita correttamente";
+            // Restituisce l'utente alla stessa pagina
+            return RedirectToAction("MyNFTs", "NFTs", new { id = id });
         }
+
 
         // GET: NFTs/Details/5
         public ActionResult Details(int? id)
@@ -196,6 +196,8 @@ namespace Capstone.Controllers
                             db.NFT.Add(nFT);
                             db.SaveChanges();
 
+                            TempData["success"] = "NFT creato con successo!";
+
                             // Reindirizza all'azione "Details" del controller "Collezione" con l'ID della collezione
                             return RedirectToAction("Details", "Collezioni", new { id = idCollezione.Value });
                         }
@@ -222,6 +224,7 @@ namespace Capstone.Controllers
             }
             else
             {
+                TempData["error"] = "Errore durante la creazione dell'NFT.";
                 // Se lo stato del modello non è valido, ritorna la vista con il modello per mostrare gli errori
                 ViewBag.IdUtente = new SelectList(db.Utenti, "IdUtente", "Email", nFT.IdUtente);
                 return View(nFT);
