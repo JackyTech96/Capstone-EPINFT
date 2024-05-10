@@ -21,6 +21,7 @@ namespace Capstone.Models
 
         public decimal Importo { get; set; }
 
+        [Display(Name ="Data Operazione")]
         public DateTime DataOperazione { get; set; }
 
         public virtual Utenti Utenti { get; set; }

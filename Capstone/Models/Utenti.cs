@@ -23,11 +23,12 @@ namespace Capstone.Models
         [Key]
         public int IdUtente { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Il campo Email è obbligatorio.")]
         [StringLength(100)]
+        [EmailAddress(ErrorMessage = "Inserisci un indirizzo email valido.")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Il campo Username è obbligatorio.")]
         [StringLength(50)]
         public string Username { get; set; }
 
@@ -35,8 +36,10 @@ namespace Capstone.Models
         [StringLength(100)]
         public string Password { get; set; }
 
+        [Display(Name = "Foto Utente")]
         public string FotoUtente { get; set; }
 
+        [Display(Name = "Artista")]
         public bool IsArtista { get; set; }
 
         [Required]

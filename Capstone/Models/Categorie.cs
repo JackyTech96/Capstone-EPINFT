@@ -19,6 +19,7 @@ namespace Capstone.Models
         public int IdCategoria { get; set; }
 
         [Required]
+        [Display(Name = "Categoria")]
         [StringLength(50)]
         public string NomeCategoria { get; set; }
 

@@ -23,15 +23,18 @@ namespace Capstone.Models
         public int IdCategoria { get; set; }
 
         [Required]
+        [Display(Name = "Nome Collezione")]
         [StringLength(50)]
         public string NomeCollezione { get; set; }
 
         public string Descrizione { get; set; }
 
+        [Display(Name = "Data Creazione")]
         public DateTime DataCreazione { get; set; }
 
         public decimal? Royalties { get; set; }
 
+        [Display(Name = "Foto Collezione")]
         public string FotoCollezione { get; set; }
 
         public virtual Categorie Categorie { get; set; }

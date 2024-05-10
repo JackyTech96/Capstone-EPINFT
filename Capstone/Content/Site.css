@@ -216,3 +216,16 @@ footer span {
 .audio-container .play-button i {
         font-size: 24px;
 }
+
+/*-----------------------------------*\
+ * #BLOG
+\*-----------------------------------*/
+
+.carousel-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    color: white;
+}

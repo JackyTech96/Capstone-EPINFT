@@ -24,11 +24,14 @@ namespace Capstone.Models
 
         public int IdProprietario { get; set; }
 
+        [Display(Name = "Nome File")]
         public string NomeFile { get; set; }
 
+        [Display(Name = "Tipo File")]
         public string TipoFile { get; set; }
 
         [Required]
+        [Display(Name = "Nome NFT")]
         [StringLength(50)]
         public string NomeNFT { get; set; }
 
@@ -36,8 +39,10 @@ namespace Capstone.Models
 
         public decimal Prezzo { get; set; }
 
+        [Display(Name = "Data Creazione")]
         public DateTime DataCreazione { get; set; }
 
+        [Display(Name = "Disponibile?")]
         public bool IsDisponibile { get; set; }
 
         public virtual Collezioni Collezioni { get; set; }
